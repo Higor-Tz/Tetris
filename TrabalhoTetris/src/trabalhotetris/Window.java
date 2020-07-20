@@ -38,8 +38,8 @@ import utils.Constants;
 public class Window extends JFrame implements ActionListener{
     
     private final JPanel menu = new JPanel(null);
-    private final JButton newGame1 = new JButton("Fase 1");
-    private final JButton newGame2 = new JButton("Fase 2");
+    private final JButton newGame1 = new JButton("Play");
+//    private final JButton newGame2 = new JButton("Fase 2");
     private final JButton loadGame = new JButton("Load Game");
     private final JLabel maxPoints = new JLabel("Max Score: 0");
     private JLabel tetris; 
@@ -64,7 +64,7 @@ public class Window extends JFrame implements ActionListener{
             public void run() {
                 Window window = new Window("Tetris");
                 try {
-                    window.background = new JLabel(new ImageIcon(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator+"Background.png"));
+                    window.background = new JLabel(new ImageIcon(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator+"Background4.png"));
                 } catch (IOException ex) {
                     Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -106,11 +106,11 @@ public class Window extends JFrame implements ActionListener{
                 window.newGame1.addActionListener(window);
                 window.newGame1.setActionCommand("NewGame1");
                 
-                window.newGame2.setBounds(window.getWidth()/2 - 50, 300, 100, 50);
+/*                window.newGame2.setBounds(window.getWidth()/2 - 50, 300, 100, 50);
                 window.newGame2.addActionListener(window);
                 window.newGame2.setActionCommand("NewGame2");
-        
-                window.loadGame.setBounds(window.getWidth()/2 - 50, 400, 100, 50);
+*/        
+                window.loadGame.setBounds(window.getWidth()/2 - 50, 300, 100, 50);
                 window.loadGame.addActionListener(window);
                 window.loadGame.setActionCommand("LoadGame");
         
@@ -122,7 +122,7 @@ public class Window extends JFrame implements ActionListener{
                 window.menu.setBounds(0,0, 1000, 900);
                 window.menu.setBackground(Color.BLACK);
                 window.menu.add(window.newGame1);
-                window.menu.add(window.newGame2);
+//                window.menu.add(window.newGame2);
                 window.menu.add(window.loadGame);    
         
                 //RECEBER INPUT DE EVENTOS
@@ -152,7 +152,7 @@ public class Window extends JFrame implements ActionListener{
         //Botão Fase 1
         if(command.equals("NewGame1")){
             curentStage = new Stage(null);
-            curentStage.stageName("FASE 1");
+            curentStage.stageName("Tetris");
             this.addKeyListener(curentStage);
             
             gameChecker.start();
@@ -164,7 +164,7 @@ public class Window extends JFrame implements ActionListener{
         }
         
         //Botão Fase 2
-        if(command.equals("NewGame2")){
+/*        if(command.equals("NewGame2")){
             curentStage = new Stage(null);
             curentStage.addObstacle(2, 10);
             curentStage.addObstacle(5, 15);
@@ -179,7 +179,7 @@ public class Window extends JFrame implements ActionListener{
             this.revalidate();
             this.repaint();
         }
-        
+*/        
         //Botão Load
         if(command.equals("LoadGame")){
             curentStage = new Stage(null); 

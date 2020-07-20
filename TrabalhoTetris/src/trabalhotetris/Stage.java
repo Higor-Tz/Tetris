@@ -71,6 +71,9 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
     private Random rand;
     private int pontuation;
     
+    //numero de peças
+    private static int numpecas = 5;
+    
     //CONSTRUTOR: Utilizado para inicialização da fase.
 
      /**
@@ -94,8 +97,8 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
         nextPieceText.setLayout(null);
         nextPieceText.setVerticalAlignment(JLabel.CENTER);
         nextPieceText.setHorizontalAlignment(JLabel.CENTER);
-        nextPieceText.setFont(new java.awt.Font("Broadway", 1, 16));
-        nextPieceText.setForeground(new java.awt.Color(200, 200, 200));
+        nextPieceText.setFont(new java.awt.Font("Verdana", 1, 16));
+        nextPieceText.setForeground(new java.awt.Color(0, 0, 0));
         nextPieceText.setPreferredSize(new Dimension(Constants.CELL_SIZE*4, Constants.CELL_SIZE));
         nextPieceText.setBounds(Constants.CELL_SIZE*(Constants.WIDTH +3), Constants.CELL_SIZE*8, Constants.CELL_SIZE*4, Constants.CELL_SIZE);
         this.add(nextPieceText);
@@ -104,28 +107,28 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
         timeText.setLayout(null);
         timeText.setVerticalAlignment(JLabel.CENTER);
         timeText.setHorizontalAlignment(JLabel.CENTER);
-        timeText.setFont(new java.awt.Font("Broadway", 1, 14));
+        timeText.setFont(new java.awt.Font("Verdana", 1, 14));
         timeText.setForeground(new java.awt.Color(200, 200, 200));
         timeText.setPreferredSize(new Dimension(Constants.CELL_SIZE*4, Constants.CELL_SIZE));
         timeText.setBounds(Constants.CELL_SIZE*(Constants.WIDTH +3), Constants.CELL_SIZE*(Constants.HEIGHT -1), Constants.CELL_SIZE*4, Constants.CELL_SIZE);
         this.add(timeText);
        
-        scoreLabel = new JLabel("Score");
+        scoreLabel = new JLabel("Score");//label do ponto
         scoreLabel.setLayout(null);
         scoreLabel.setVerticalAlignment(JLabel.CENTER);
         scoreLabel.setHorizontalAlignment(JLabel.CENTER);
-        scoreLabel.setFont(new java.awt.Font("Broadway", 1, 24));
-        scoreLabel.setForeground(new java.awt.Color(200, 200, 200));
+        scoreLabel.setFont(new java.awt.Font("Verdana", 1, 24));
+        scoreLabel.setForeground(new java.awt.Color(0, 0, 0));
         scoreLabel.setPreferredSize(new Dimension(Constants.CELL_SIZE*4, Constants.CELL_SIZE*2));
         scoreLabel.setBounds(Constants.CELL_SIZE*(Constants.WIDTH +3), Constants.CELL_SIZE*11, Constants.CELL_SIZE*4, Constants.CELL_SIZE*2);
         this.add(scoreLabel);
         
-        score = new JLabel("0");
+        score = new JLabel("0");//pontos
         score.setLayout(null);
         score.setVerticalAlignment(JLabel.CENTER);
         score.setHorizontalAlignment(JLabel.CENTER);
-        score.setFont(new java.awt.Font("Broadway", 1, 24));
-        score.setForeground(new java.awt.Color(200, 200, 200));
+        score.setFont(new java.awt.Font("Verdana", 1, 24));
+        score.setForeground(new java.awt.Color(0, 0, 0));
         score.setPreferredSize(new Dimension(Constants.CELL_SIZE*4, Constants.CELL_SIZE*2));
         score.setBounds(Constants.CELL_SIZE*(Constants.WIDTH +3), Constants.CELL_SIZE*13, Constants.CELL_SIZE*4, Constants.CELL_SIZE*2);
         this.add(score);
@@ -134,7 +137,7 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
         saveText.setLayout(null);
         saveText.setVerticalAlignment(JLabel.CENTER);
         saveText.setHorizontalAlignment(JLabel.CENTER);
-        saveText.setFont(new java.awt.Font("Broadway", 1, 20));
+        saveText.setFont(new java.awt.Font("Verdana", 1, 20));
         saveText.setForeground(new java.awt.Color(255, 255, 255));
         saveText.setPreferredSize(new Dimension(Constants.CELL_SIZE*3, Constants.CELL_SIZE));
         saveText.setBounds(Constants.CELL_SIZE*(Constants.WIDTH -9), Constants.CELL_SIZE*(Constants.HEIGHT -10), Constants.CELL_SIZE*10, Constants.CELL_SIZE);        
@@ -150,7 +153,7 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
             blockImages[6] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Purple.png"));
             blockImages[7] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Green.png"));
             
-            background = new BackgroundElement(ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator+"Background.png")));
+            background = new BackgroundElement(ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator+"Background4.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -161,9 +164,9 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
                 board[i][j] = 0;
         
         //Peças
-        int pieceIndex = rand.nextInt(7);
+        int pieceIndex = rand.nextInt(numpecas);
         currentPiece = new Piece(Constants.WIDTH/2 - 1, 0, pieceIndex, blockImages[pieceIndex+1]);
-        pieceIndex = rand.nextInt(7);
+        pieceIndex = rand.nextInt(numpecas);
         nextPiece = new Piece(Constants.WIDTH/2 - 1, 0, pieceIndex, blockImages[pieceIndex+1]);
         
         //Timer
@@ -339,7 +342,7 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
         score.setText(Integer.toString(pontuation));
         
         //Cria proximas peças
-        int pieceIndex = rand.nextInt(7);
+        int pieceIndex = rand.nextInt(numpecas);
         currentPiece = nextPiece;
         nextPiece = new Piece(Constants.WIDTH/2 - 1, 0, pieceIndex, blockImages[pieceIndex+1]);
         
