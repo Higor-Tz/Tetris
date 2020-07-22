@@ -145,13 +145,13 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
         //Carregamento de imagens
         try {
             blockImages[0] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Gray.png"));
-            blockImages[1] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Red.png"));
-            blockImages[2] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Blue.png"));
-            blockImages[3] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Cyan.png"));
-            blockImages[4] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Yellow.png"));
-            blockImages[5] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Orange.png"));
-            blockImages[6] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Purple.png"));
-            blockImages[7] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Green.png"));
+            blockImages[1] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Yellow.png"));
+            blockImages[2] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Green.png"));
+            blockImages[3] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Purple.png"));
+            blockImages[4] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Red.png"));
+            blockImages[5] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Blue.png"));
+//            blockImages[6] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Cyan.png"));
+//            blockImages[7] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Orange.png"));
             
             background = new BackgroundElement(ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator+"Background4.png")));
         } catch (IOException e) {
