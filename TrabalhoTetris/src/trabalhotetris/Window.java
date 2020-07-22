@@ -32,7 +32,7 @@ public class Window extends JFrame implements ActionListener{
     // Botão de carregar um jogo anterior (mais utilizado para jogar manualmente)
     private final JButton loadGame = new JButton("Load Game");
     // Painel de Pontuação
-    private final JLabel maxPoints = new JLabel("Max Score: 0");
+    private final JLabel maxPoints = new JLabel("Pontuação Máxima: 0");
     // Label que mostra o titulo do jogo
     private JLabel tetris;
     // Label para carregar o plano de fundo
@@ -83,7 +83,7 @@ public class Window extends JFrame implements ActionListener{
                 window.maxPoints.setLayout(null);
                 window.maxPoints.setVerticalAlignment(JLabel.CENTER);
                 window.maxPoints.setHorizontalAlignment(JLabel.LEFT);
-                window.maxPoints.setFont(new java.awt.Font("Verdana", 1, 18)); // Fonte, estilo e tamanho da pontuação máxima
+                window.maxPoints.setFont(new java.awt.Font("Verdana", 1, 14)); // Fonte, estilo e tamanho da pontuação máxima
                 window.maxPoints.setForeground(new java.awt.Color(255, 255, 255));// Cor das letras
                 window.maxPoints.setPreferredSize(new Dimension(Constants.CELL_SIZE*5, Constants.CELL_SIZE));
                 window.maxPoints.setBounds(5,Constants.CELL_SIZE*17, Constants.CELL_SIZE*7, Constants.CELL_SIZE); // Posiciona a pontuação máxima
@@ -179,7 +179,7 @@ public class Window extends JFrame implements ActionListener{
                 // Caso ele retorne ao menu inicial ele verifica a pontuação atingida anteriormente
                 if(maxScore < curentStage.getScore()){ // se a pontuação feita nesse jogo for maior que a anterior salva
                     maxScore = curentStage.getScore(); // atualizamos a pontuação máxima
-                    maxPoints.setText("Max Score: " + maxScore);
+                    maxPoints.setText("Pontuação Máxima: " + maxScore);
                 }
                 
                 this.removeKeyListener(curentStage);

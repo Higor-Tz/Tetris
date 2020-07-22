@@ -86,7 +86,7 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
         nextPieceText.setVerticalAlignment(JLabel.CENTER);
         nextPieceText.setHorizontalAlignment(JLabel.CENTER);
         nextPieceText.setFont(new java.awt.Font("Verdana", 1, 12)); // fonte, estilo e tamanho do título
-        nextPieceText.setForeground(new java.awt.Color(255, 255, 255)); // cor do texto
+        nextPieceText.setForeground(new java.awt.Color(255, 255, 255)); // cor do texto da próxima peça
         nextPieceText.setPreferredSize(new Dimension(Constants.CELL_SIZE*4, Constants.CELL_SIZE));
         nextPieceText.setBounds(Constants.CELL_SIZE*(Constants.WIDTH +3), Constants.CELL_SIZE*8, Constants.CELL_SIZE*4, Constants.CELL_SIZE);
         this.add(nextPieceText);
@@ -101,12 +101,12 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
         timeText.setBounds(Constants.CELL_SIZE*(Constants.WIDTH +3), Constants.CELL_SIZE*(Constants.HEIGHT -1), Constants.CELL_SIZE*4, Constants.CELL_SIZE);
         this.add(timeText);
        
-        scoreLabel = new JLabel("Score");//label do ponto
+        scoreLabel = new JLabel("Pontuação:");//label de pontuação
         scoreLabel.setLayout(null);
         scoreLabel.setVerticalAlignment(JLabel.CENTER);
         scoreLabel.setHorizontalAlignment(JLabel.CENTER);
-        scoreLabel.setFont(new java.awt.Font("Verdana", 1, 24));
-        scoreLabel.setForeground(new java.awt.Color(255, 255, 255));
+        scoreLabel.setFont(new java.awt.Font("Verdana", 1, 16));// fonte, formato e tamnho do titulo da pontuação
+        scoreLabel.setForeground(new java.awt.Color(255, 255, 255));// cor do texto
         scoreLabel.setPreferredSize(new Dimension(Constants.CELL_SIZE*4, Constants.CELL_SIZE*2));
         scoreLabel.setBounds(Constants.CELL_SIZE*(Constants.WIDTH +3), Constants.CELL_SIZE*11, Constants.CELL_SIZE*4, Constants.CELL_SIZE*2);
         this.add(scoreLabel);
@@ -276,7 +276,7 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
             saveTimer++;
             if(saveTimer == 20)
                 this.remove(saveText);
-            timeText.setText("Time: "+(totalTicks*timer.getDelay())/1000+"s");
+            timeText.setText("Tempo: "+(totalTicks*timer.getDelay())/1000+"s");
             if(ticks > getFallTicksRequired()){
                 if(currentPiece.checkValidPosition(currentPiece.X, currentPiece.Y + 1, currentPiece.getRotation(), board))
                     currentPiece.fall();
