@@ -29,76 +29,64 @@ import utils.Constants;
 /**
  *<h1>Projeto Tetris - Classe Stage </h1>
  * 
- * 
- * 
- * @author  G7 
- * @version 0.1
- * @since   2018-06-29
- * 
  */
 public class Stage extends JPanel implements Serializable, KeyListener, ActionListener{
     
-    //Game Elements
-    private Piece currentPiece;
-    private Piece nextPiece;
-    private BackgroundElement background;
+    //Elementos do jogo
+    private Piece currentPiece; // Peça atual
+    private Piece nextPiece; // Próxima peça
+    private BackgroundElement background; // plano de fundo
     private int[][] board = new int[Constants.HEIGHT][Constants.WIDTH];
     
-    //TextElements
+    //Elementos de textos
     private JLabel tetrisText;
-    private JLabel nextPieceText;
-    private JLabel scoreLabel;
-    private JLabel score;
-    private JLabel timeText;
+    private JLabel nextPieceText; // texto da proxima peça
+    private JLabel scoreLabel; // define o elemento
+    private JLabel score; // pontuação
+    private JLabel timeText; // Tempo de jogo
     private JLabel saveText;
     
-    //Imagens
-
-    /**
-     *
-     */
+    
     public static BufferedImage[] blockImages = new BufferedImage[Constants.NUM_OF_PIECES];
     
-    //Time Atributes
+    //Atributos do Tempo
     private Timer timer;
     private int ticks;
     private int totalTicks;
-    private int saveTimer;
+    private int saveTimer; // Salva o tempo
     
-    //Control Atributes
+    //Atributos de controle
     private boolean isAcelerated;   //Down Key Pressed
     private boolean isInGame;
     private Random rand;
     private int pontuation;
     
-    //numero de peças
+    // Numero de peças do jogo (Jogo original possui 7)
     private static int numpecas = 5;
     
     //CONSTRUTOR: Utilizado para inicialização da fase.
 
      /**
-     *Construtor da Classe Stage. Utilizado na inicialização de fase
-     *@param layout LayoutManager
      *
      */
     Stage(LayoutManager layout){
         super(layout);
         
-        rand = new Random();
+        rand = new Random(); // Inicia um random
         
-        //Dimensionamento e aparência da tela de jogo. Alterar de acordo com o design final.
+        //Dimensionamento e aparência da tela de jogo
         this.setPreferredSize(new Dimension(Constants.CELL_SIZE*(Constants.WIDTH + 8),Constants.CELL_SIZE*(Constants.HEIGHT + 2)));
         this.setMaximumSize(this.getPreferredSize());
         this.setBounds(0, 0, Constants.CELL_SIZE*(Constants.WIDTH + 8), Constants.CELL_SIZE*(Constants.HEIGHT + 2));
-        this.setBackground(Color.GRAY);
+        this.setBackground(Color.GRAY);// Cor do fundo
         
         //Text elements        
-        nextPieceText = new JLabel("Next Shape");
+        nextPieceText = new JLabel("Próxima Peça");// Título da próxima peça
         nextPieceText.setLayout(null);
         nextPieceText.setVerticalAlignment(JLabel.CENTER);
         nextPieceText.setHorizontalAlignment(JLabel.CENTER);
-        nextPieceText.setFont(new java.awt.Font("Verdana", 1, 16));
-        nextPieceText.setForeground(new java.awt.Color(0, 0, 0));
+        nextPieceText.setFont(new java.awt.Font("Verdana", 1, 12)); // fonte, estilo e tamanho do título
+        nextPieceText.setForeground(new java.awt.Color(255, 255, 255)); // cor do texto
         nextPieceText.setPreferredSize(new Dimension(Constants.CELL_SIZE*4, Constants.CELL_SIZE));
         nextPieceText.setBounds(Constants.CELL_SIZE*(Constants.WIDTH +3), Constants.CELL_SIZE*8, Constants.CELL_SIZE*4, Constants.CELL_SIZE);
         this.add(nextPieceText);
@@ -107,8 +95,8 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
         timeText.setLayout(null);
         timeText.setVerticalAlignment(JLabel.CENTER);
         timeText.setHorizontalAlignment(JLabel.CENTER);
-        timeText.setFont(new java.awt.Font("Verdana", 1, 14));
-        timeText.setForeground(new java.awt.Color(200, 200, 200));
+        timeText.setFont(new java.awt.Font("Verdana", 1, 14));// fonte, estilo e tamanho do tempo
+        timeText.setForeground(new java.awt.Color(255, 255, 255)); // cor do tempo
         timeText.setPreferredSize(new Dimension(Constants.CELL_SIZE*4, Constants.CELL_SIZE));
         timeText.setBounds(Constants.CELL_SIZE*(Constants.WIDTH +3), Constants.CELL_SIZE*(Constants.HEIGHT -1), Constants.CELL_SIZE*4, Constants.CELL_SIZE);
         this.add(timeText);
@@ -118,7 +106,7 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
         scoreLabel.setVerticalAlignment(JLabel.CENTER);
         scoreLabel.setHorizontalAlignment(JLabel.CENTER);
         scoreLabel.setFont(new java.awt.Font("Verdana", 1, 24));
-        scoreLabel.setForeground(new java.awt.Color(0, 0, 0));
+        scoreLabel.setForeground(new java.awt.Color(255, 255, 255));
         scoreLabel.setPreferredSize(new Dimension(Constants.CELL_SIZE*4, Constants.CELL_SIZE*2));
         scoreLabel.setBounds(Constants.CELL_SIZE*(Constants.WIDTH +3), Constants.CELL_SIZE*11, Constants.CELL_SIZE*4, Constants.CELL_SIZE*2);
         this.add(scoreLabel);
@@ -128,7 +116,7 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
         score.setVerticalAlignment(JLabel.CENTER);
         score.setHorizontalAlignment(JLabel.CENTER);
         score.setFont(new java.awt.Font("Verdana", 1, 24));
-        score.setForeground(new java.awt.Color(0, 0, 0));
+        score.setForeground(new java.awt.Color(255, 255, 255));
         score.setPreferredSize(new Dimension(Constants.CELL_SIZE*4, Constants.CELL_SIZE*2));
         score.setBounds(Constants.CELL_SIZE*(Constants.WIDTH +3), Constants.CELL_SIZE*13, Constants.CELL_SIZE*4, Constants.CELL_SIZE*2);
         this.add(score);
@@ -153,7 +141,7 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
 //            blockImages[6] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Cyan.png"));
 //            blockImages[7] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Orange.png"));
             
-            background = new BackgroundElement(ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator+"Background4.png")));
+            background = new BackgroundElement(ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator+"Background5.jpg")));
         } catch (IOException e) {
             e.printStackTrace();
         }
