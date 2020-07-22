@@ -22,21 +22,21 @@ import java.util.Random;
 public class Indiv
 {
     private int numPieces;
-    private int[] weightPieceRotate;
-    private int[] weightPieceMoveRight;
-    private int[] weightPieceMoveLeft;
-    private int[] weightDistanceRotate = new int[10];
-    private int[] weightDistanceMoveRight = new int[10];
-    private int[] weightDistanceMoveLeft = new int[10];
+    private double[] weightPieceRotate;
+    private double[] weightPieceMoveRight;
+    private double[] weightPieceMoveLeft;
+    private double[] weightDistanceRotate = new double[10];
+    private double[] weightDistanceMoveRight = new double[10];
+    private double[] weightDistanceMoveLeft = new double[10];
     private int pontuation;
     private Random rand;
 
     Indiv(int numPieces)
     {
         this.numPieces = numPieces;
-        this.weightPieceRotate = new int[this.numPieces];
-        this.weightPieceMoveRight = new int[this.numPieces];
-        this.weightPieceMoveLeft = new int[this.numPieces];
+        this.weightPieceRotate = new double[this.numPieces];
+        this.weightPieceMoveRight = new double[this.numPieces];
+        this.weightPieceMoveLeft = new double[this.numPieces];
         this.pontuation = -1;
         this.rand = new Random(); // Inicia um random
         GenerateAttributes();
@@ -49,9 +49,9 @@ public class Indiv
     }
 
     //gera um peso aleatorio dentro do intervalo [-100000, 100000]
-    public int GenerateWeight()
+    public double GenerateWeight()
     {
-        return (this.rand.nextInt(200001) - 100000) * 0.001;
+        return (this.rand.nextDouble() * 2000 - 1000);
     }
 
     //gera todos os pesos de atributos do individuo
@@ -96,13 +96,13 @@ public class Indiv
     public void Crossover(Indiv best)
     {
         this.pontuation = -1; // avalicao nao realizada
-        for (i = 0; i < this.numPieces; i++)
+        for (int i = 0; i < this.numPieces; i++)
         {
             this.weightPieceRotate[i] = (this.weightPieceRotate[i] + best.weightPieceRotate[i]) / 2; // novo parametro
             this.weightPieceMoveRight[i] = (this.weightPieceMoveRight[i] + best.weightPieceMoveRight[i]) / 2;
             this.weightPieceMoveLeft[i] = (this.weightPieceMoveLeft[i] + best.weightPieceMoveLeft[i]) / 2; 
         }
-        for (i = 0; i < 10; i++)
+        for (int i = 0; i < 10; i++)
         {
             this.weightDistanceRotate[i] = (this.weightDistanceRotate[i] + best.weightDistanceRotate[i]) / 2; // novo parametro
             this.weightDistanceMoveRight[i] = (this.weightDistanceMoveRight[i] + best.weightDistanceMoveRight[i]) / 2;
@@ -114,7 +114,7 @@ public class Indiv
 
     public boolean Rotate(int typePiece, float[] distance)
     {
-        int decision = this.weightPieceRotate[typePiece];
+        double decision = this.weightPieceRotate[typePiece];
 
         for(int i = 0; i < 10; i++)
         {
@@ -126,7 +126,7 @@ public class Indiv
 
     public boolean MoveRight(int typePiece, float[] distance)
     {
-        int decision = this.weightPieceMoveRight[typePiece];
+        double decision = this.weightPieceMoveRight[typePiece];
 
         for(int i = 0; i < 10; i++)
         {
@@ -138,7 +138,7 @@ public class Indiv
 
     public boolean MoveLeft(int typePiece, float[] distance)
     {
-        int decision = this.weightPieceMoveLeft[typePiece];
+        double decision = this.weightPieceMoveLeft[typePiece];
 
         for(int i = 0; i < 10; i++)
         {

@@ -24,18 +24,19 @@ public class Evolution
     private Indiv[] population; //todos os individuos da população
     private int best; //index do melhor individuo
 
-    Evolution(int size)
+    Evolution(int size, int numPieces)
     {
         this.popSize = size;
-        GeneratePopulation();
+        GeneratePopulation(numPieces);
         this.best = 0;
     }
 
-    public void GeneratePopulation()
+    public void GeneratePopulation(int numPieces)
     {
+        this.population = new Indiv[popSize];
         for(int i = 0; i < this.popSize; i++)
         {
-            this.population[i] = new Indiv();
+            this.population[i] = new Indiv(numPieces);
         }
     }
 
