@@ -106,58 +106,62 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
         scoreLabel.setVerticalAlignment(JLabel.CENTER);
         scoreLabel.setHorizontalAlignment(JLabel.CENTER);
         scoreLabel.setFont(new java.awt.Font("Verdana", 1, 16));// fonte, formato e tamnho do titulo da pontuação
-        scoreLabel.setForeground(new java.awt.Color(255, 255, 255));// cor do texto
+        scoreLabel.setForeground(new java.awt.Color(255, 255, 255));// cor do texto dos pontos
         scoreLabel.setPreferredSize(new Dimension(Constants.CELL_SIZE*4, Constants.CELL_SIZE*2));
         scoreLabel.setBounds(Constants.CELL_SIZE*(Constants.WIDTH +3), Constants.CELL_SIZE*11, Constants.CELL_SIZE*4, Constants.CELL_SIZE*2);
         this.add(scoreLabel);
         
-        score = new JLabel("0");//pontos
+        score = new JLabel("0");//pontuação iniciada em 0
         score.setLayout(null);
         score.setVerticalAlignment(JLabel.CENTER);
         score.setHorizontalAlignment(JLabel.CENTER);
-        score.setFont(new java.awt.Font("Verdana", 1, 24));
-        score.setForeground(new java.awt.Color(255, 255, 255));
+        score.setFont(new java.awt.Font("Verdana", 1, 24)); // fonte, estilo e tamanho da pontuação
+        score.setForeground(new java.awt.Color(255, 255, 255)); // cor da pontuação
         score.setPreferredSize(new Dimension(Constants.CELL_SIZE*4, Constants.CELL_SIZE*2));
         score.setBounds(Constants.CELL_SIZE*(Constants.WIDTH +3), Constants.CELL_SIZE*13, Constants.CELL_SIZE*4, Constants.CELL_SIZE*2);
         this.add(score);
         
-        saveText = new JLabel("JOGO SALVO");
+        saveText = new JLabel("JOGO SALVO");// quando realizado um salvamento do jogo "S"
         saveText.setLayout(null);
         saveText.setVerticalAlignment(JLabel.CENTER);
         saveText.setHorizontalAlignment(JLabel.CENTER);
-        saveText.setFont(new java.awt.Font("Verdana", 1, 20));
-        saveText.setForeground(new java.awt.Color(255, 255, 255));
+        saveText.setFont(new java.awt.Font("Verdana", 1, 20)); // fonte, formato e tamanho do texto de salvamento
+        saveText.setForeground(new java.awt.Color(255, 255, 255)); // cor do salvamento
         saveText.setPreferredSize(new Dimension(Constants.CELL_SIZE*3, Constants.CELL_SIZE));
         saveText.setBounds(Constants.CELL_SIZE*(Constants.WIDTH -9), Constants.CELL_SIZE*(Constants.HEIGHT -10), Constants.CELL_SIZE*10, Constants.CELL_SIZE);        
         
-        //Carregamento de imagens
+        //Carregamento de Imagens dos blocos
         try {
+            // Cor dos blocos da Base
             blockImages[0] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Gray.png"));
+            // Imagem com a cor da peça quadrada de 4 blocos
             blockImages[1] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Yellow.png"));
+            // Imagem com a cor da peça I
             blockImages[2] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Green.png"));
+            // Imagem com a cor da peça T
             blockImages[3] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Purple.png"));
+            // Imagem com a cor da peça L espelhado
             blockImages[4] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Red.png"));
+            // Imagem com a cor da peça L normal
             blockImages[5] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Blue.png"));
-//            blockImages[6] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Cyan.png"));
-//            blockImages[7] = ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator +"Blocks"+File.separator+"Orange.png"));
-            
+            // Imagem do plano de fundo no jogo
             background = new BackgroundElement(ImageIO.read(new File(new File(".").getCanonicalPath() + File.separator+"Textures"+File.separator+"Background5.jpg")));
         } catch (IOException e) {
             e.printStackTrace();
         }
         
-        //Tabuleiro
+        // Tabuleiro
         for(int i = 0; i < board.length; i++)
             for(int j = 0; j < board[j].length; j++)
                 board[i][j] = 0;
         
-        //Peças
+        // Peças
         int pieceIndex = rand.nextInt(numpecas);
         currentPiece = new Piece(Constants.WIDTH/2 - 1, 0, pieceIndex, blockImages[pieceIndex+1]);
         pieceIndex = rand.nextInt(numpecas);
         nextPiece = new Piece(Constants.WIDTH/2 - 1, 0, pieceIndex, blockImages[pieceIndex+1]);
         
-        //Timer
+        // Timer
         timer = new Timer(Constants.DELAY_SCREEN_UPDATE, this);
         timer.setActionCommand("TIMER");
         timer.setInitialDelay(0);
@@ -165,7 +169,7 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
         ticks = 0;
         totalTicks = 0;
         
-        //Controle
+        // Controle
         isAcelerated = false;
         isInGame = true;
         pontuation = 0;
@@ -181,8 +185,8 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
         g.setColor(Color.BLACK);
         for(int i = 0; i <= Constants.HEIGHT; i++){
             g.drawLine(Constants.CELL_SIZE, i*Constants.CELL_SIZE, (Constants.WIDTH + 1)*Constants.CELL_SIZE, i*Constants.CELL_SIZE);
-            g.drawImage(blockImages[0], 0, i*Constants.CELL_SIZE, Constants.CELL_SIZE, Constants.CELL_SIZE, null);
-            g.drawImage(blockImages[0], (Constants.WIDTH + 1)*Constants.CELL_SIZE, i*Constants.CELL_SIZE, Constants.CELL_SIZE, Constants.CELL_SIZE, null);
+            g.drawImage(blockImages[0], 0, i*Constants.CELL_SIZE, Constants.CELL_SIZE, Constants.CELL_SIZE, null); // posiç~iona a grade a esquerda
+            g.drawImage(blockImages[0], (Constants.WIDTH + 1)*Constants.CELL_SIZE, i*Constants.CELL_SIZE, Constants.CELL_SIZE, Constants.CELL_SIZE, null); // posiç~iona a grade a direita
             g.drawImage(blockImages[0], (Constants.WIDTH + 2)*Constants.CELL_SIZE, i*Constants.CELL_SIZE, Constants.CELL_SIZE, Constants.CELL_SIZE, null);
             g.drawImage(blockImages[0], (Constants.WIDTH + 7)*Constants.CELL_SIZE, i*Constants.CELL_SIZE, Constants.CELL_SIZE, Constants.CELL_SIZE, null);
         }
@@ -200,14 +204,14 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
             g.drawImage(blockImages[0], (i+Constants.WIDTH+3)*Constants.CELL_SIZE,Constants.CELL_SIZE*16 , Constants.CELL_SIZE, Constants.CELL_SIZE, null);
         }
         
-        //Impressão de obstáculos e peças mortas
+        //Impressão de peças já posicionadas
         for(int i = 0; i < Constants.HEIGHT; i++)
             for(int j = 0; j < Constants.WIDTH; j++)
                 if(board[i][j] > 0 && board[i][j] < 8)
                     g.drawImage(blockImages[board[i][j]], (j+1)*Constants.CELL_SIZE, i*Constants.CELL_SIZE, Constants.CELL_SIZE,Constants.CELL_SIZE,null);
                 else if(board[i][j] == 8)
                     g.drawImage(blockImages[0], (j+1)*Constants.CELL_SIZE, i*Constants.CELL_SIZE, Constants.CELL_SIZE,Constants.CELL_SIZE,null);
-
+        
         
         //Impressão da peça atual e da próxima
         currentPiece.draw(g);
@@ -381,7 +385,7 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
      * @param y int
      */
     public void addObstacle(int x, int y){
-        board[y][x] = 8;
+        board[y][x] = 8;// pode ser removido
     }
     
     //altera o título da fase a entrar
