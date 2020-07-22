@@ -44,7 +44,6 @@ public class Window extends JFrame implements ActionListener{
     // Contagem da pontuação máxima
     private int maxScore;
     
-    
 /**
  * Classe Main. Executa os parâmetros gerais do jogo.
  * 
@@ -104,11 +103,13 @@ public class Window extends JFrame implements ActionListener{
                 window.newGame1.setBounds(window.getWidth()/2 - 50, 200, 100, 50);
                 window.newGame1.addActionListener(window);
                 window.newGame1.setActionCommand("NewGame1");
+                window.newGame1.doClick();// inicia um jogo altomaticamente
+                
                 // Posiciona o botão "Load Game no jogo"
                 window.loadGame.setBounds(window.getWidth()/2 - 50, 300, 100, 50);
                 window.loadGame.addActionListener(window);
                 window.loadGame.setActionCommand("LoadGame");
-        
+                
                 //Timer verifica fim de jogo
                 window.gameChecker.setActionCommand("GameChecker");
                 window.gameChecker.addActionListener(window);
@@ -117,15 +118,15 @@ public class Window extends JFrame implements ActionListener{
                 window.menu.setBounds(0,0, 1000, 900);
                 window.menu.setBackground(Color.BLACK);
                 window.menu.add(window.newGame1);
-                window.menu.add(window.loadGame);    
-        
+                window.menu.add(window.loadGame);
+                
                 //RECEBER INPUT DE EVENTOS
                 window.setFocusable(true);
                 window.requestFocusInWindow();
-        
+                
                 window.add(window.menu);
-                window.menu.add(window.background);
-            }
+                window.menu.add(window.background);      
+            }  
         });
     }
     
@@ -143,7 +144,7 @@ public class Window extends JFrame implements ActionListener{
         String command = e.getActionCommand();
         
         //Ações Botões
-        //Botão Play é devinido
+        //Botão Play é definido
         if(command.equals("NewGame1")){
             curentStage = new Stage(null);
             curentStage.stageName("Tetris"); // Mantem o nome do jogo no canto superior direito
