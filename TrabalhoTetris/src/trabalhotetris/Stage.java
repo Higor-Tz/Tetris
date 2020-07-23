@@ -63,17 +63,23 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
     
     // Numero de peças do jogo (Jogo original possui 7)
     private static int numpecas = 5;
+
+    private Indiv player;
+    private int decision;
+    private int currentPieceIndex;
     
     //CONSTRUTOR: Utilizado para inicialização da fase.
 
      /**
      *
      */
-    Stage(LayoutManager layout){
+    Stage(LayoutManager layout, Indiv player){
         super(layout);
         
         rand = new Random(); // Inicia um random
         
+        this.player = player;
+
         //Dimensionamento e aparência da tela de jogo
         this.setPreferredSize(new Dimension(Constants.CELL_SIZE*(Constants.WIDTH + 8),Constants.CELL_SIZE*(Constants.HEIGHT + 2)));
         this.setMaximumSize(this.getPreferredSize());
@@ -335,12 +341,42 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
         
         //Cria proximas peças
         int pieceIndex = rand.nextInt(numpecas);
+        currentPieceIndex = pieceIndex;
         currentPiece = nextPiece;
         nextPiece = new Piece(Constants.WIDTH/2 - 1, 0, pieceIndex, blockImages[pieceIndex+1]);
         
         //Verifica se o jogo deve ser continuado
         if(!currentPiece.checkValidPosition(currentPiece.getX(), currentPiece.getY(), currentPiece.getRotation(), board))
             isInGame = false;
+
+        decision = player.ComandDecision(currentPieceIndex);
+
+        while(decision >= 10)
+        {
+            if(isInGame)
+                currentPiece.rotate(board);
+            ticks = 0;
+            decision -= 10;
+        }
+
+        if(decision >= 6)
+        {
+            while(decision >= 6)
+            {
+                if(isInGame)
+                    currentPiece.moveRigth(board);
+                decision -= 1;
+            }
+        }
+        else
+        {
+            while(decision > 0)
+            {
+                if(isInGame)
+                    currentPiece.moveLeft(board);
+                decision -= 1;
+            }
+        }
     }
     
     //Remove a linha do tabuleiro. Preserva obstaculos.

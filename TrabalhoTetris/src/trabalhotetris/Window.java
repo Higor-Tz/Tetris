@@ -44,6 +44,8 @@ public class Window extends JFrame implements ActionListener{
     // Contagem da pontuação máxima
     private int maxScore;
     
+    private boolean gg = true;
+    
 /**
  * Classe Main. Executa os parâmetros gerais do jogo.
  * 
@@ -103,7 +105,7 @@ public class Window extends JFrame implements ActionListener{
                 window.newGame1.setBounds(window.getWidth()/2 - 50, 200, 100, 50);
                 window.newGame1.addActionListener(window);
                 window.newGame1.setActionCommand("NewGame1");
-                window.newGame1.doClick();// inicia um jogo altomaticamente
+                window.newGame1.doClick();// inicia um jogo automaticamente
                 
                 // Posiciona o botão "Load Game no jogo"
                 window.loadGame.setBounds(window.getWidth()/2 - 50, 300, 100, 50);
@@ -143,15 +145,36 @@ public class Window extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e){
         String command = e.getActionCommand();
         
+        if(gg == true)
+        {
+            gg = false;
+            Population pop = new Population(10, 5);
+
+            /*for(int i = 0; i < pop.popSize; i++)
+            {*/
+                curentStage = new Stage(null, pop.pop[0]);
+                curentStage.stageName("Tetris"); // Mantem o nome do jogo no canto superior direito
+                this.addKeyListener(curentStage);
+                //inicia o jogo com click
+                gameChecker.start();
+
+                this.remove(menu);
+                this.add(curentStage);
+                this.revalidate();
+                this.repaint();
+            //}
+        }
+        
+        
         //Ações Botões
         //Botão Play é definido
         if(command.equals("NewGame1")){
-            curentStage = new Stage(null);
+            curentStage = new Stage(null, null);
             curentStage.stageName("Tetris"); // Mantem o nome do jogo no canto superior direito
             this.addKeyListener(curentStage);
             //inicia o jogo com click
             gameChecker.start();
-            
+
             this.remove(menu);
             this.add(curentStage);
             this.revalidate();
@@ -160,7 +183,7 @@ public class Window extends JFrame implements ActionListener{
         
         //Botão de carregar jogo anterior
         if(command.equals("LoadGame")){
-            curentStage = new Stage(null); 
+            curentStage = new Stage(null, null); 
             curentStage.load();
             
             this.addKeyListener(curentStage);

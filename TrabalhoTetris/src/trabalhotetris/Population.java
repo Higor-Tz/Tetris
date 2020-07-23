@@ -18,13 +18,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import utils.Constants;
 
-public class Evolution
+public class Population
 {
-    private int popSize; //tamanho da população
-    private Indiv[] population; //todos os individuos da população
+    public int popSize; //tamanho da população
+    public Indiv[] pop; //todos os individuos da população
     private int best; //index do melhor individuo
 
-    Evolution(int size, int numPieces)
+    Population(int size, int numPieces)
     {
         this.popSize = size;
         GeneratePopulation(numPieces);
@@ -33,10 +33,10 @@ public class Evolution
 
     public void GeneratePopulation(int numPieces)
     {
-        this.population = new Indiv[popSize];
+        this.pop = new Indiv[popSize];
         for(int i = 0; i < this.popSize; i++)
         {
-            this.population[i] = new Indiv(numPieces);
+            this.pop[i] = new Indiv(numPieces);
         }
     }
 
@@ -44,7 +44,7 @@ public class Evolution
     {
         for(int i = 0; i < this.popSize; i++)
         {
-            if(this.population[i].IsBest(this.population[this.best]))
+            if(this.pop[i].IsBest(this.pop[this.best]))
                 this.best = i;
         }
     }
@@ -57,8 +57,8 @@ public class Evolution
         {
             if(i != this.best)
             {
-                this.population[i].Crossover(this.population[this.best]);
-                this.population[i].Mutation();
+                //this.pop[i].Crossover(this.pop[this.best]);
+                //this.pop[i].Mutation();
             }
         }
     }

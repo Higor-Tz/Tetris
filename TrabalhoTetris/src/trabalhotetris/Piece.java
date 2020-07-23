@@ -33,7 +33,8 @@ public class Piece extends Element{
         
         this.shape = type;
         
-        rotation = (new Random().nextInt(4));
+        // rotation = (new Random().nextInt(4));
+        rotation = 0;
     }
     
     //GETTERS
