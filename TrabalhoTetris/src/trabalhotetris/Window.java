@@ -46,7 +46,7 @@ public class Window extends JFrame implements ActionListener{
     
     private int popIndex;
     private Population pop;
-    private int tamPop = 2;
+    private int tamPop = 10;
     
 /**
  * Classe Main. Executa os parâmetros gerais do jogo.
@@ -172,7 +172,7 @@ public class Window extends JFrame implements ActionListener{
         //Botão Play é definido
         if(command.equals("NewGame1")){
 
-            pop = new Population(tamPop, 5);
+            pop = new Population(tamPop);
             popIndex = 0;
             this.remove(menu);
             this.RunGame(pop.pop[popIndex]);

@@ -24,19 +24,19 @@ public class Population
     public Indiv[] pop; //todos os individuos da população
     private int best; //index do melhor individuo
 
-    Population(int size, int numPieces)
+    Population(int size)
     {
         this.popSize = size;
-        GeneratePopulation(numPieces);
+        GeneratePopulation();
         this.best = 0;
     }
 
-    public void GeneratePopulation(int numPieces)
+    public void GeneratePopulation()
     {
         this.pop = new Indiv[popSize];
         for(int i = 0; i < this.popSize; i++)
         {
-            this.pop[i] = new Indiv(numPieces);
+            this.pop[i] = new Indiv();
         }
     }
 

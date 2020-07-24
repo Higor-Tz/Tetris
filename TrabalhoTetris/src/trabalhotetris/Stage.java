@@ -37,6 +37,7 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
     private Piece nextPiece; // Próxima peça
     private BackgroundElement background; // plano de fundo
     private int[][] board = new int[Constants.HEIGHT][Constants.WIDTH];
+    private int[] surface = new int[Constants.WIDTH];
     
     //Elementos de textos
     private JLabel tetrisText;
@@ -526,7 +527,19 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
 
     public void AI()
     {
-        decision = player.ComandDecision(currentPieceIndex);
+        for(int i = 0; i < Constants.WIDTH; i++)
+        {
+            for(int j = 0; j < Constants.HEIGHT; j++)
+            {
+                if(board[j][i] != 0){
+                    surface[i] = j;
+                    j = Constants.HEIGHT;
+                }
+            }
+        }
+
+
+        decision = player.ComandDecision(currentPieceIndex, surface);
 
         while(decision >= 10)
         {
