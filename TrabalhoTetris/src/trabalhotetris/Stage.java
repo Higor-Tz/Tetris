@@ -69,6 +69,9 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
     private int currentPieceIndex;
     public int nPieces;
     
+    // vetor do topo
+    //private int topo[] = new int[10];
+    
     //CONSTRUTOR: Utilizado para inicialização da fase.
 
      /**
@@ -326,6 +329,20 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
                 partialPontuation++;
             }
         }
+        
+        // verifica as linhas
+        /*
+        for(int j = 0; j < Constants.WIDTH; j++){
+            int i = 0;
+            while( i < Constants.HEIGHT && board[i][j] > 0){
+                i++;
+                if(board[i][j] > 0){
+                    topo[j] = i;
+                }
+            }
+            System.out.println("O topo da coluna " + topo[j] + " eh: " + i);
+        }
+        */
         switch(partialPontuation){
             case 1:
                 pontuation += 50;
@@ -396,9 +413,9 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
      * @param x int
      * @param y int
      */
-    public void addObstacle(int x, int y){
+    /*public void addObstacle(int x, int y){
         board[y][x] = 8;// pode ser removido
-    }
+    }*/
     
     //altera o título da fase a entrar
 
