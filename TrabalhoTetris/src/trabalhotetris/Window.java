@@ -44,7 +44,8 @@ public class Window extends JFrame implements ActionListener{
     // Contagem da pontuação máxima
     private int maxScore;
     
-    private boolean gg = true;
+    private int popIndex;
+    private Population pop;
     
 /**
  * Classe Main. Executa os parâmetros gerais do jogo.
@@ -105,7 +106,7 @@ public class Window extends JFrame implements ActionListener{
                 window.newGame1.setBounds(window.getWidth()/2 - 50, 200, 100, 50);
                 window.newGame1.addActionListener(window);
                 window.newGame1.setActionCommand("NewGame1");
-                window.newGame1.doClick();// inicia um jogo automaticamente
+                // window.newGame1.doClick();// inicia um jogo automaticamente
                 
                 // Posiciona o botão "Load Game no jogo"
                 window.loadGame.setBounds(window.getWidth()/2 - 50, 300, 100, 50);
@@ -145,40 +146,35 @@ public class Window extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e){
         String command = e.getActionCommand();
         
-        if(gg == true)
-        {
-            gg = false;
-            Population pop = new Population(10, 5);
+        // if(gg == true)
+        // {
+        //     gg = false;
+        //     Population pop = new Population(10, 5);
 
-            /*for(int i = 0; i < pop.popSize; i++)
-            {*/
-                curentStage = new Stage(null, pop.pop[0]);
-                curentStage.stageName("Tetris"); // Mantem o nome do jogo no canto superior direito
-                this.addKeyListener(curentStage);
-                //inicia o jogo com click
-                gameChecker.start();
+        //     /*for(int i = 0; i < pop.popSize; i++)
+        //     {*/
+        //         curentStage = new Stage(null, pop.pop[0]);
+        //         curentStage.stageName("Tetris"); // Mantem o nome do jogo no canto superior direito
+        //         this.addKeyListener(curentStage);
+        //         //inicia o jogo com click
+        //         gameChecker.start();
 
-                this.remove(menu);
-                this.add(curentStage);
-                this.revalidate();
-                this.repaint();
-            //}
-        }
+        //         this.remove(menu);
+        //         this.add(curentStage);
+        //         this.revalidate();
+        //         this.repaint();
+        //     //}
+        // }
         
         
         //Ações Botões
         //Botão Play é definido
         if(command.equals("NewGame1")){
-            curentStage = new Stage(null, null);
-            curentStage.stageName("Tetris"); // Mantem o nome do jogo no canto superior direito
-            this.addKeyListener(curentStage);
-            //inicia o jogo com click
-            gameChecker.start();
 
+            pop = new Population(10, 5);
+            popIndex = 0;
             this.remove(menu);
-            this.add(curentStage);
-            this.revalidate();
-            this.repaint();
+            this.RunGame(pop.pop[popIndex]);
         }
         
         //Botão de carregar jogo anterior
@@ -200,20 +196,43 @@ public class Window extends JFrame implements ActionListener{
         if(command.equals("GameChecker")){
             if(curentStage.getIsInGame() == false){
                 gameChecker.stop();
-                // Caso ele retorne ao menu inicial ele verifica a pontuação atingida anteriormente
-                if(maxScore < curentStage.getScore()){ // se a pontuação feita nesse jogo for maior que a anterior salva
-                    maxScore = curentStage.getScore(); // atualizamos a pontuação máxima
-                    maxPoints.setText("Pontuação Máxima: " + maxScore);
-                }
-                
+                // Caso ele retorne ao menu inicial ele verifica a pontuação atingida anteriormente;;
+                // if(maxScore < curentStage.getScore()){ // se a pontuação feita nesse jogo for maior que a anterior salva
+                //     maxScore = curentStage.getScore(); // atualizamos a pontuação máxima
+                //     maxPoints.setText("Pontuação Máxima: " + maxScore);
+                // }
+
                 this.removeKeyListener(curentStage);
                 this.remove(curentStage);
-                this.add(menu);
-                this.revalidate();
-                this.repaint();
+                
+                pop.pop[popIndex].pontuation = curentStage.getScore();
+                popIndex++;
+
+                if(popIndex < 10)
+                    this.RunGame(pop.pop[popIndex]);
+                else
+                {
+                    for(int i = 0; i < 10; i++)
+                    {
+                        System.out.println(i + ": " + pop.pop[i].pontuation);
+                    }
+                }
             }
         }
             
             
+    }
+
+    public void RunGame(Indiv individual)
+    {
+        curentStage = new Stage(null, individual);
+        curentStage.stageName("Tetris"); // Mantem o nome do jogo no canto superior direito
+        this.addKeyListener(curentStage);
+        //inicia o jogo com click
+        gameChecker.start();
+
+        this.add(curentStage);
+        this.revalidate();
+        this.repaint();
     }
 }

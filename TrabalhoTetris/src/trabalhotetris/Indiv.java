@@ -37,7 +37,7 @@ public class Indiv
     // private double[] weightDistanceRotate = new double[10];
     // private double[] weightDistanceMoveRight = new double[10];
     // private double[] weightDistanceMoveLeft = new double[10];
-    private int pontuation;
+    public int pontuation;
     private Random rand;
 
     Indiv(int numPieces)

@@ -67,6 +67,7 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
     private Indiv player;
     private int decision;
     private int currentPieceIndex;
+    public int nPieces;
     
     //CONSTRUTOR: Utilizado para inicialização da fase.
 
@@ -163,8 +164,11 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
         
         // Peças
         int pieceIndex = rand.nextInt(numpecas);
+        currentPieceIndex = pieceIndex;
         currentPiece = new Piece(Constants.WIDTH/2 - 1, 0, pieceIndex, blockImages[pieceIndex+1]);
+        AI();
         pieceIndex = rand.nextInt(numpecas);
+        currentPieceIndex = pieceIndex;
         nextPiece = new Piece(Constants.WIDTH/2 - 1, 0, pieceIndex, blockImages[pieceIndex+1]);
         
         // Timer
@@ -340,43 +344,15 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
         score.setText(Integer.toString(pontuation));
         
         //Cria proximas peças
+        currentPiece = nextPiece;
+        AI();
         int pieceIndex = rand.nextInt(numpecas);
         currentPieceIndex = pieceIndex;
-        currentPiece = nextPiece;
         nextPiece = new Piece(Constants.WIDTH/2 - 1, 0, pieceIndex, blockImages[pieceIndex+1]);
         
         //Verifica se o jogo deve ser continuado
         if(!currentPiece.checkValidPosition(currentPiece.getX(), currentPiece.getY(), currentPiece.getRotation(), board))
             isInGame = false;
-
-        decision = player.ComandDecision(currentPieceIndex);
-
-        while(decision >= 10)
-        {
-            if(isInGame)
-                currentPiece.rotate(board);
-            ticks = 0;
-            decision -= 10;
-        }
-
-        if(decision >= 6)
-        {
-            while(decision >= 6)
-            {
-                if(isInGame)
-                    currentPiece.moveRigth(board);
-                decision -= 1;
-            }
-        }
-        else
-        {
-            while(decision > 0)
-            {
-                if(isInGame)
-                    currentPiece.moveLeft(board);
-                decision -= 1;
-            }
-        }
     }
     
     //Remove a linha do tabuleiro. Preserva obstaculos.
@@ -410,7 +386,7 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
         if(isAcelerated)
             return Math.toIntExact(Math.round(Constants.BASE_FALL_TICKS*Math.pow(Constants.FALL_TICKS_REDUCTION_RATE,(double)(pontuation/1000))/Constants.ACELERATION_RATE));
         
-        return Math.toIntExact(Math.round(Constants.BASE_FALL_TICKS*Math.pow(Constants.FALL_TICKS_REDUCTION_RATE,(double)(pontuation/1000))));
+        return Math.toIntExact(Math.round(Constants.BASE_FALL_TICKS*Math.pow(Constants.FALL_TICKS_REDUCTION_RATE,(double)((pontuation/1000)+999999999))));
     }
     
     //adiciona obstáculo na posição dada
@@ -546,5 +522,37 @@ public class Stage extends JPanel implements Serializable, KeyListener, ActionLi
             } catch (IOException ex) {
                Logger.getLogger(Constants.class.getName()).log(Level.SEVERE, null, ex);
             }
+    }
+
+    public void AI()
+    {
+        decision = player.ComandDecision(currentPieceIndex);
+
+        while(decision >= 10)
+        {
+            if(isInGame)
+                currentPiece.rotate(board);
+            ticks = 0;
+            decision -= 10;
+        }
+
+        if(decision >= 6)
+        {
+            while(decision >= 6)
+            {
+                if(isInGame)
+                    currentPiece.moveRigth(board);
+                decision -= 1;
+            }
+        }
+        else
+        {
+            while(decision > 0)
+            {
+                if(isInGame)
+                    currentPiece.moveLeft(board);
+                decision -= 1;
+            }
+        }
     }
 }
