@@ -106,7 +106,7 @@ public class Window extends JFrame implements ActionListener{
                 window.newGame1.setBounds(window.getWidth()/2 - 50, 200, 100, 50);
                 window.newGame1.addActionListener(window);
                 window.newGame1.setActionCommand("NewGame1");
-                // window.newGame1.doClick();// inicia um jogo automaticamente
+                window.newGame1.doClick();// inicia um jogo automaticamente
                 
                 // Posiciona o botão "Load Game no jogo"
                 window.loadGame.setBounds(window.getWidth()/2 - 50, 300, 100, 50);
