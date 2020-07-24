@@ -49,7 +49,7 @@ public class Population
         }
     }
 
-    public void Breed()
+    public void Evolution()
     {
         FindBest();
 
@@ -57,18 +57,9 @@ public class Population
         {
             if(i != this.best)
             {
-                //this.pop[i].Crossover(this.pop[this.best]);
-                //this.pop[i].Mutation();
+                this.pop[i].Breed(this.pop[this.best]);
+                this.pop[i].Mutation();
             }
         }
-    }
-
-    public void Evolução()
-    {
-        //constroi um evolution
-        //for(nGerações)
-            //executa o jogo pra cada membro da pop e salva as pontuações
-            //Bread();
-
     }
 }

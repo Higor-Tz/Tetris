@@ -90,45 +90,45 @@ public class Indiv
         // }
     }
 
-    // //Funcao que realiza mutacao em cima do individuo
-    // public void Mutation() 
-    // {
-    //     // prob de mutacao de genes -> 100%
-    //     // taxa de mutacao -> 1%
-    //     for(int i = 0; i < this.numPieces; i++)
-    //     {
-    //         this.weightPieceRotate[i] += GenerateWeight() * 0.01;
-    //         this.weightPieceMoveRight[i] += GenerateWeight() * 0.01;
-    //         this.weightPieceMoveLeft[i] += GenerateWeight() * 0.01;
-    //     }
-    //     for(int i = 0; i < 10; i++)
-    //     {
-    //         this.weightDistanceRotate[i] += GenerateWeight() * 0.01;
-    //         this.weightDistanceMoveRight[i] += GenerateWeight() * 0.01;
-    //         this.weightDistanceMoveLeft[i] += GenerateWeight() * 0.01;
+    //Funcao que realiza mutacao em cima do individuo
+    public void Mutation() 
+    {
+        // prob de mutacao de genes -> 100%
+        // taxa de mutacao -> 1%
+        for(int i = 0; i < this.numPieces; i++)
+        {
+            this.weightPieceRotate1[i] += GenerateWeight() * 0.01;
+            this.weightPieceMoveRight1[i] += GenerateWeight() * 0.01;
+            // this.weightPieceMoveLeft[i] += GenerateWeight() * 0.01;
+        }
+        // for(int i = 0; i < 10; i++)
+        // {
+        //     this.weightDistanceRotate[i] += GenerateWeight() * 0.01;
+        //     this.weightDistanceMoveRight[i] += GenerateWeight() * 0.01;
+        //     this.weightDistanceMoveLeft[i] += GenerateWeight() * 0.01;
 
-    //     }
-    // }
+        // }
+    }
 
-    // // crossover: media com o best
-    // public void Crossover(Indiv best)
-    // {
-    //     this.pontuation = -1; // avalicao nao realizada
-    //     for (int i = 0; i < this.numPieces; i++)
-    //     {
-    //         this.weightPieceRotate[i] = (this.weightPieceRotate[i] + best.weightPieceRotate[i]) / 2; // novo parametro
-    //         this.weightPieceMoveRight[i] = (this.weightPieceMoveRight[i] + best.weightPieceMoveRight[i]) / 2;
-    //         this.weightPieceMoveLeft[i] = (this.weightPieceMoveLeft[i] + best.weightPieceMoveLeft[i]) / 2; 
-    //     }
-    //     for (int i = 0; i < 10; i++)
-    //     {
-    //         this.weightDistanceRotate[i] = (this.weightDistanceRotate[i] + best.weightDistanceRotate[i]) / 2; // novo parametro
-    //         this.weightDistanceMoveRight[i] = (this.weightDistanceMoveRight[i] + best.weightDistanceMoveRight[i]) / 2;
-    //         this.weightDistanceMoveLeft[i] = (this.weightDistanceMoveLeft[i] + best.weightDistanceMoveLeft[i]) / 2; 
-    //     }
+    // crossover: media com o best
+    public void Breed(Indiv best)
+    {
+        this.pontuation = -1; // avalicao nao realizada
+        for (int i = 0; i < this.numPieces; i++)
+        {
+            this.weightPieceRotate1[i] = (this.weightPieceRotate1[i] + best.weightPieceRotate1[i]) / 2; // novo parametro
+            this.weightPieceMoveRight1[i] = (this.weightPieceMoveRight1[i] + best.weightPieceMoveRight1[i]) / 2;
+            // this.weightPieceMoveLeft[i] = (this.weightPieceMoveLeft[i] + best.weightPieceMoveLeft[i]) / 2; 
+        }
+        // for (int i = 0; i < 10; i++)
+        // {
+        //     this.weightDistanceRotate[i] = (this.weightDistanceRotate[i] + best.weightDistanceRotate[i]) / 2; // novo parametro
+        //     this.weightDistanceMoveRight[i] = (this.weightDistanceMoveRight[i] + best.weightDistanceMoveRight[i]) / 2;
+        //     this.weightDistanceMoveLeft[i] = (this.weightDistanceMoveLeft[i] + best.weightDistanceMoveLeft[i]) / 2; 
+        // }
 
 
-    // }
+    }
 
     // public boolean Decision(double weight/*, float[] distance*/)
     // {

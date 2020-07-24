@@ -46,6 +46,7 @@ public class Window extends JFrame implements ActionListener{
     
     private int popIndex;
     private Population pop;
+    private int tamPop = 2;
     
 /**
  * Classe Main. Executa os parâmetros gerais do jogo.
@@ -171,27 +172,35 @@ public class Window extends JFrame implements ActionListener{
         //Botão Play é definido
         if(command.equals("NewGame1")){
 
-            pop = new Population(10, 5);
+            pop = new Population(tamPop, 5);
             popIndex = 0;
             this.remove(menu);
             this.RunGame(pop.pop[popIndex]);
         }
         
-        //Botão de carregar jogo anterior
-        if(command.equals("LoadGame")){
-            curentStage = new Stage(null, null); 
-            curentStage.load();
+        // //Botão de carregar jogo anterior
+        // if(command.equals("LoadGame")){
+        //     curentStage = new Stage(null, null); 
+        //     curentStage.load();
             
-            this.addKeyListener(curentStage);
-            // Inicia com um click o jogo salvo anteriormente
-            gameChecker.start();
+        //     this.addKeyListener(curentStage);
+        //     // Inicia com um click o jogo salvo anteriormente
+        //     gameChecker.start();
             
-            this.remove(menu);
-            this.add(curentStage);
-            this.revalidate();
-            this.repaint();
-        } 
+        //     this.remove(menu);
+        //     this.add(curentStage);
+        //     this.revalidate();
+        //     this.repaint();
+        // } 
         
+        if(command.equals("LoadGame")){
+            pop.Evolution();
+
+            popIndex = 0;
+            this.remove(menu);
+            this.RunGame(pop.pop[popIndex]);
+        } 
+
         //Ação retorno automático ao menu
         if(command.equals("GameChecker")){
             if(curentStage.getIsInGame() == false){
@@ -208,11 +217,14 @@ public class Window extends JFrame implements ActionListener{
                 pop.pop[popIndex].pontuation = curentStage.getScore();
                 popIndex++;
 
-                if(popIndex < 10)
+                if(popIndex < tamPop)
                     this.RunGame(pop.pop[popIndex]);
                 else
                 {
-                    for(int i = 0; i < 10; i++)
+                    this.add(menu);
+                    this.revalidate();
+                    this.repaint();   
+                    for(int i = 0; i < tamPop; i++)
                     {
                         System.out.println(i + ": " + pop.pop[i].pontuation);
                     }
