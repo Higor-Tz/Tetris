@@ -9,7 +9,7 @@ public class TetrisBlock : MonoBehaviour
     public float fallTime = 0.8f; // tempo de queda automática
     public static int height = 20; // linhas
     public static int width = 10; // colunas
-
+    private static Transform[,] grid = new Transform [width,height];
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +36,7 @@ public class TetrisBlock : MonoBehaviour
         {   //Rotação da peça
             transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0,0,1), 90);
             if(!ValidMove())
-                transform.position -= new Vector3(transform.TransformPoint(rotationPoint), new Vector3(0,0,1), -90);
+                transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0,0,1), -90);
         }
 
 
@@ -44,9 +44,79 @@ public class TetrisBlock : MonoBehaviour
         {
             transform.position += new Vector3(0, -1, 0); // posiciona a peça para baixo
             if(!ValidMove())
+            {
                 transform.position -= new Vector3(0, -1, 0);// pode estar faltando essa verificação na função
+                AddToGrid();
+                CheckForLines();
+                
+                this.enabled = false;
+                FindObjectOfType<SpawnPecas>().NewPecas();
+            
+            }
             previousTime = Time.time;
         }
+
+        void CheckForLines()
+        {
+            for (int i = height-1; i >= 0; i--)
+            {
+                if(Hasline())
+                {
+                    DeleteLine();
+                    RowDown();
+                }
+            }
+        }
+
+        bool Hasline(int i)
+        {
+            for(int j = 0; j < width; j++)
+            {
+                if (grid[j,i] == null)
+                return false;
+            }
+            return true;
+        }
+
+        void DeleteLine(int i)
+        {
+            for(int j = 0; j < width; j++)
+            {
+                Destroy(grind[j,i].gameObject);
+                grind[j,i] = null;
+            }
+            
+        }
+
+        void RowDown(int i)
+        {
+            for(int y = i; y < height; y++)
+            {
+                for (int j=0; j < whidth; j++)
+                {
+                    if(grid[j,y] != null)
+                    {
+                        grid[j, y - 1] = grid[j, y];
+                        grid[j, y] = null;
+                        grid[j, y - 1].transform.position -= new Vector3(0, 1, 0);
+                    }
+                }
+            }
+
+        }
+
+
+        void AddToGrid()
+        {
+            foreach (Transform children in transform)
+            {
+                int roundedX = Mathf.RoundToInt(children.transform.position.x);
+                int roundedY = Mathf.RoundToInt(children.transform.position.y);
+                
+                grid[roundedX,roundedY] = children;
+            }
+        }
+
 
         bool ValidMove() // para validar um movimento
         {
@@ -59,6 +129,10 @@ public class TetrisBlock : MonoBehaviour
                 {
                     return false;
                 }
+
+                if(grid[roundedX, roundedY] != null)
+                    return false;
+
             }
 
             return true;
