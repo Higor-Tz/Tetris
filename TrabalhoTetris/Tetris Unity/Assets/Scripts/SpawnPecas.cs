@@ -13,6 +13,6 @@ public class SpawnPecas : MonoBehaviour
 
     public void NewPecas()
     {
-        Instantiate(Pecas[Random.Range(0,Pecas.Length)], transform.position, Quaternion.identuty);
+        Instantiate(Pecas[Random.Range(0,Pecas.Length)], transform.position, Quaternion.identity);
     }
 }
