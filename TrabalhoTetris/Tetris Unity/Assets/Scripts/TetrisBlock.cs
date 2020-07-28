@@ -9,7 +9,7 @@ public class TetrisBlock : MonoBehaviour
     public float fallTime = 0.8f; // tempo de queda automática
     public static int height = 20; // linhas
     public static int width = 10; // colunas
-    private static Transform[,] grid = new Transform [width,height];
+    public static Transform[,] grid = new Transform [width,height];
 
     // Start is called before the first frame update
     void Start()
@@ -22,42 +22,64 @@ public class TetrisBlock : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.LeftArrow)) // checa se a esquerda foi precionado
         {
-            transform.position += new Vector3(-1, 0, 0); // posiciona a peça a esquerda
-            if(!ValidMove())
-                transform.position -= new Vector3(-1, 0, 0);
+            MoveLeft();
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow)) // checa se a direita foi precionado
         {
-            transform.position += new Vector3(1, 0, 0); // posiciona a peça a direita
-            if(!ValidMove())
-                transform.position -= new Vector3(1, 0, 0);
+            MoveRight();
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
-        {   //Rotação da peça
-            transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0,0,1), 90);
-            if(!ValidMove())
-                transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0,0,1), -90);
+        {   
+            Rotate();
         }
-
 
         if(Time.time - previousTime > (Input.GetKeyDown(KeyCode.DownArrow) ? (fallTime / 10) : fallTime)) // quando precionado para baixo diminui o tempo de queda
         {
-            transform.position += new Vector3(0, -1, 0); // posiciona a peça para baixo
-            if(!ValidMove())
-            {
-                transform.position -= new Vector3(0, -1, 0);// pode estar faltando essa verificação na função
-                AddToGrid();
-                CheckForLines();
-                
-                this.enabled = false;
-                FindObjectOfType<SpawnPecas>().NewPecas();
-            
-            }
+            MoveDown();
             previousTime = Time.time;
         }
     }
 
-    void CheckForLines()
+    public void MoveLeft()
+    {
+        transform.position += new Vector3(-1, 0, 0); // posiciona a peça a esquerda
+        
+        if(!ValidMove())
+            transform.position -= new Vector3(-1, 0, 0);
+    }
+    
+    public void MoveRight()
+    {
+        transform.position += new Vector3(1, 0, 0); // posiciona a peça a direita
+
+        if(!ValidMove())
+            transform.position -= new Vector3(1, 0, 0);
+    }
+
+    public void Rotate()
+    {
+        transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0,0,1), 90); // Rotação da peça
+
+        if(!ValidMove())
+            transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0,0,1), -90);
+    }
+
+    public void MoveDown()
+    {
+        transform.position += new Vector3(0, -1, 0); // posiciona a peça para baixo
+
+        if(!ValidMove())
+        {
+            transform.position -= new Vector3(0, -1, 0);// pode estar faltando essa verificação na função
+            AddToGrid();
+            CheckForLines();
+            
+            this.enabled = false;
+            FindObjectOfType<SpawnPecas>().NewPecas();
+        }
+    }
+
+    public void CheckForLines()
     {
         for (int i = height-1; i >= 0; i--)
         {
@@ -69,7 +91,7 @@ public class TetrisBlock : MonoBehaviour
         }
     }
 
-    bool Hasline(int i)
+    public bool Hasline(int i)
     {
         for(int j = 0; j < width; j++)
         {
@@ -79,7 +101,7 @@ public class TetrisBlock : MonoBehaviour
         return true;
     }
 
-    void DeleteLine(int i)
+    public void DeleteLine(int i)
     {
         for(int j = 0; j < width; j++)
         {
@@ -89,7 +111,7 @@ public class TetrisBlock : MonoBehaviour
         
     }
 
-    void RowDown(int i)
+    public void RowDown(int i)
     {
         for(int y = i; y < height; y++)
         {
@@ -106,8 +128,7 @@ public class TetrisBlock : MonoBehaviour
 
     }
 
-
-    void AddToGrid()
+    public void AddToGrid()
     {
         foreach (Transform children in transform)
         {
@@ -118,8 +139,7 @@ public class TetrisBlock : MonoBehaviour
         }
     }
 
-
-    bool ValidMove() // para validar um movimento
+    public bool ValidMove() // para validar um movimento
     {
         foreach (Transform children in transform)
         {
