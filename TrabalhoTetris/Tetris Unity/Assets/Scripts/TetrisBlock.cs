@@ -11,7 +11,7 @@ public class TetrisBlock : MonoBehaviour
     public static int width = 10; // colunas
     public int scoreValue = 50; // pontuação
     public int qlinhas = 0;//quantidades de linhas a serem deletadas
-    private static Transform[,] grid = new Transform [width,height];
+    public static Transform[,] grid = new Transform [width,height];
 
     // Start is called before the first frame update
     void Start()
@@ -83,6 +83,12 @@ public class TetrisBlock : MonoBehaviour
 
     public void CheckForLines()
     {
+        /*for(int a = 0; a < width; a++)
+        {
+            if(grid[a,height] != null)
+                Application.Quit();
+        }*/
+
         for (int i = height-1; i >= 0; i--)
         {
             if(Hasline(i))
