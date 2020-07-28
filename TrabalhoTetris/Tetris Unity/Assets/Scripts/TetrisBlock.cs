@@ -9,7 +9,9 @@ public class TetrisBlock : MonoBehaviour
     public float fallTime = 0.8f; // tempo de queda automática
     public static int height = 20; // linhas
     public static int width = 10; // colunas
-    public static Transform[,] grid = new Transform [width,height];
+    public int scoreValue = 50; // pontuação
+    public int qlinhas = 0;//quantidades de linhas a serem deletadas
+    private static Transform[,] grid = new Transform [width,height];
 
     // Start is called before the first frame update
     void Start()
@@ -87,8 +89,18 @@ public class TetrisBlock : MonoBehaviour
             {
                 DeleteLine(i);
                 RowDown(i);
+                qlinhas++;
             }
         }
+        if(qlinhas==1) //eliminou 1 linha
+            pontuacao.score += scoreValue; // score soma 50
+        else if(qlinhas==2) //eliminou 2 linha concecultivas
+            pontuacao.score += scoreValue*4; // score soma 200
+        else if(qlinhas==3) //eliminou 3 linha concecultivas
+            pontuacao.score += scoreValue*16; // score soma 800
+        else if(qlinhas==4) //eliminou 4 linha concecultivas
+            pontuacao.score += scoreValue*64; // score soma 3200
+        qlinhas=0;
     }
 
     public bool Hasline(int i)
