@@ -300,7 +300,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Pontua\xE7\xE3o: 0000000000000000000\n"
+  m_Text: "Pontua\xE7\xE3o: 0\n"
 --- !u!222 &693212794
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -604,7 +604,12 @@ MonoBehaviour:
   - {fileID: 1138831501619986312, guid: d017fc7496ab3e74abb5ea16b4c5b3d2, type: 3}
   - {fileID: 6271912428306179074, guid: 403d302a6365c544ab365e03c0dca468, type: 3}
   - {fileID: 1533006821568597617, guid: bcbf9b4a6bc6c564581e329c852a03a7, type: 3}
+<<<<<<< HEAD
   player: {fileID: -3295434529237010028, guid: da600c31964757c49acf70dad6cb3da3, type: 3}
+=======
+  player: {fileID: 987532800649609197, guid: da600c31964757c49acf70dad6cb3da3, type: 3}
+  currentPieceIndex: 0
+>>>>>>> 7f6fc49e889d53e5342e536544eb22805cf65e25
 --- !u!4 &1792492971
 Transform:
   m_ObjectHideFlags: 0

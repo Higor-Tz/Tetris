@@ -134,6 +134,12 @@ public class TetrisBlock : MonoBehaviour
 
     public void CheckForLines()
     {
+        /*for(int a = 0; a < width; a++)// fecha a aplicação caso o bloco esteja na ultima linha
+        {
+            if(grid[a,height-1] == null)
+                Application.Quit();
+        }*/
+
         for (int i = height-1; i >= 0; i--)
         {
             if(Hasline(i))
