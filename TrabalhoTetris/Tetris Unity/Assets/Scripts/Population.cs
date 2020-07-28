@@ -2,34 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Population
+public class Population : MonoBehaviour
 {
-    public int popSize; //tamanho da população
+    // public int popSize = 10; //tamanho da população
     public Indiv[] pop; //todos os individuos da população
-    private int best; //index do melhor individuo
+    [SerializeField] private int indivIndex;
+    [SerializeField] private int best; //index do melhor individuo
+    public static Population instance;
 
-    Population(int size)
+    void Awake()
     {
-        this.popSize = size;
-        GeneratePopulation();
-        this.best = 0; 
-    }
+		if(instance!=null)
+        {
+			Debug.LogError("Mais de um Population");
+			return;
+		}
 
-    public void GeneratePopulation()
+		instance = this;
+	}
+
+    void Start()
     {
-        this.pop = new Indiv[popSize];
-        // for(int i = 0; i < this.popSize; i++)
-        // {
-        //     this.pop[i] = new Indiv();
-        // }
+        best = 0; 
+        indivIndex = -1;
+        NextIndividual();
     }
 
     public void FindBest()
     {
-        for(int i = 0; i < this.popSize; i++)
+        for(int i = 0; i < pop.Length; i++)
         {
-            if(this.pop[i].IsBest(this.pop[this.best]))
-                this.best = i;
+            if(pop[i].IsBest(pop[best]))
+                best = i;
         }
     }
 
@@ -37,13 +41,38 @@ public class Population
     {
         FindBest();
 
-        for(int i = 0; i < this.popSize; i++)
+        for(int i = 0; i < pop.Length; i++)
         {
-            if(i != this.best)
+            if(i != best)
             {
-                this.pop[i].Breed(this.pop[this.best]);
-                this.pop[i].Mutation();
+                pop[i].Breed(pop[best]);
+                pop[i].Mutation();
             }
+        }
+    }
+
+    public void NextIndividual()
+    {
+        if(indivIndex < pop.Length-1)
+        {
+            indivIndex++;
+            // sP.NextPlayer(pop[indivIndex]);
+            SpawnPecas.instance.NewPecas();
+        }
+        else
+            ShowPop();
+    }
+
+    public void Evaluate(int pontuation)
+    {
+        pop[indivIndex].pontuation = pontuation;
+    }
+
+    public void ShowPop()
+    {
+        for(int i = 0; i < pop.Length; i++)
+        {
+            Debug.Log(i + ": " + pop[i].pontuation + ", " + pop[i].plays);
         }
     }
 }

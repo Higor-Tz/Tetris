@@ -5,7 +5,7 @@ using System;
 
 public class Indiv : MonoBehaviour
 {
-    private static int numPieces = 5;
+    private static int numPieces = 7;
     private static int surfaceSize = 10;
     // private static final int nRotations = 3;
     // private static final int nRMovements = 4;
@@ -29,7 +29,7 @@ public class Indiv : MonoBehaviour
 
     private System.Random rand;    
 
-    Indiv()
+    void Start()
     {
         weightRotate1 = new double[numPieces + surfaceSize];
         // this.weightRotate2 = new double[this.numPieces];
@@ -156,9 +156,9 @@ public class Indiv : MonoBehaviour
     {
         double decision = weights[typePiece];
 
-        for(int i = numPieces; i < numPieces + surfaceSize; i++)
+        for(int i = 0; i < surfaceSize; i++)
         {
-            decision += weights[i] * surface[i-numPieces];
+            decision += weights[i+numPieces] * surface[i];
         }
         
         return decision;
