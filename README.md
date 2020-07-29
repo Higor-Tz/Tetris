@@ -10,7 +10,9 @@ This repository is a remastering of the original 1984 Tetris game and applicatio
 #### How to install:
 To compile and run this program, you need to install the Unity development platform, in version 2019.4.4 (or higher), we use Visual Studio Code to write the scripts in C #.
 Both Programs can be installed through the links:
+
 https://unity3d.com/pt/unity/whats-new/2019.4.4
+
 https://code.visualstudio.com/
 
 #### How to run:
