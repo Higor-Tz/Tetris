@@ -46,9 +46,9 @@ public class Indiv1 : MonoBehaviour
     {
         // prob de mutacao de genes -> 100%
         // taxa de mutacao -> 1%
-        weightVoid += GenerateWeight() * 0.05;
-        weightBumpiness += GenerateWeight() * 0.05;
-        weightHeight += GenerateWeight() * 0.05;
+        weightVoid += GenerateWeight() * 0.01;
+        weightBumpiness += GenerateWeight() * 0.01;
+        weightHeight += GenerateWeight() * 0.01;
     }
 
     // crossover: media com o best
