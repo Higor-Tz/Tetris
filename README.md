@@ -10,6 +10,8 @@ Tetris is a game that consists of a 10x20 board where pieces of the tetramino ty
 
 Each completed line is scored 50 points, if two are completed at the same time the point value obtained for each completed line is doubled, if there are three lines, the previous score is quadrupled and if four lines are filled at once with the piece “ I ”, the total the score 3200 points is added, in other words, four times the previous score.
 
+The game ends when one of the pieces crosses the top of the board.
+
 ## Population
 Texto a definir
 
