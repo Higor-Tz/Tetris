@@ -17,14 +17,14 @@ public class TetrisBlock : MonoBehaviour
     public double bestScore;
     public Vector3 bestPosition;
     public Quaternion bestRotation;
-    public int readjustment;
+    public static int nPiece = 0;
 
     void Start()
     {
-        transform.position += new Vector3(0, readjustment, 0);
+        nPiece++;
 
         if(!ValidMove())
-             EndGame();
+            EndGame();
         else
         {
             bestScore = double.MaxValue;
@@ -260,7 +260,6 @@ public class TetrisBlock : MonoBehaviour
 
     public void EndGame()
     {
-        Debug.Log("Chama");
         ClearGrid();
         Population.instance.Evaluate(Pontuacao.score);
         Pontuacao.score = 0;
@@ -282,7 +281,7 @@ public class TetrisBlock : MonoBehaviour
             // yield return new WaitForSeconds(0.01f);
             transform.position = initPosition;
             Rotate();
-            // Debug.Log("R");
+            // Debug.Log(nPiece + ":R");
 
             mostRight = 0;
             foreach (Transform children in transform)
@@ -294,15 +293,19 @@ public class TetrisBlock : MonoBehaviour
             while(MoveLeft())
             {
                 mostRight--;
-                // Debug.Log("E");
+                // Debug.Log(nPiece + ":E1");
                 // yield return new WaitForSeconds(0.01f);
             }
             
             while(MoveDown())
             {
+                // Debug.Log(nPiece + ":B1");
+
                 if(MoveLeft())
+                {
+                    // Debug.Log(nPiece + ":E2");
                     mostRight--;
-                // Debug.Log("B1");
+                }
                 // yield return new WaitForSeconds(0.01f);
             }
 
@@ -312,16 +315,24 @@ public class TetrisBlock : MonoBehaviour
                 while(!MoveRight())
                 {
                     // yield return new WaitForSeconds(0.01f);
-                    // Debug.Log("!D");
-                    if(!MoveUp() && !tp)
+                    // Debug.Log(nPiece + ":!D");
+                    if(!MoveUp())
                     {
+                        // Debug.Log(nPiece + ":!C");
                         if(!tp)
                         {
                             tp = true;
-                            transform.position = new Vector3(transform.position.x, initPosition.y, initPosition.z);
+
+                            float x = transform.position.x;
+                            transform.position = initPosition;
+                            while(transform.position.x < x)
+                                MoveRight();
+                            while(transform.position.x > x)
+                                MoveLeft();
+                            
                             while(MoveDown())
                             {
-                                // Debug.Log("B2");
+                                // Debug.Log(nPiece + ":B2");
                                 // yield return new WaitForSeconds(0.01f);
                                 
                             }
@@ -332,16 +343,22 @@ public class TetrisBlock : MonoBehaviour
                             break; 
                         }
                     }
+                    // else
+                        // Debug.Log(nPiece + ":C");
+
                 }
                 // yield return new WaitForSeconds(0.01f);
-                // Debug.Log("D");
+                // Debug.Log(nPiece + ":D");
                 mostRight++;
                 
                 while(MoveDown())
                 {
                     if(MoveLeft())
+                    {
                         mostRight--;
-                    // Debug.Log("B2");
+                        // Debug.Log(nPiece + ":E3");
+                    }
+                    // Debug.Log(nPiece + ":B3");
                     // yield return new WaitForSeconds(0.01f);
                     
                 }

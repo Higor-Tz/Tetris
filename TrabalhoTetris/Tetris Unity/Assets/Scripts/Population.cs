@@ -31,6 +31,16 @@ public class Population : MonoBehaviour
         NextIndividual();
     }
 
+    void Update()
+    {
+        if(!Input.GetKeyDown(KeyCode.UpArrow))
+            return;
+
+        Evolution();
+        indivIndex = -1;
+        NextIndividual();
+    }
+
     public void FindBest()
     {
         for(int i = 0; i < pop.Length; i++)
