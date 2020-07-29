@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &987532800649609196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 987532800649609198}
+  - component: {fileID: 987532800649609197}
+  - component: {fileID: -3295434529237010028}
+  m_Layer: 0
+  m_Name: Individual
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &987532800649609198
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 987532800649609196}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.09801, y: 6.8266215, z: -0.7912235}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &987532800649609197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 987532800649609196}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4a4a0889a97f9e408d2caa128f1bcab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weightRotate1:
+  - 817.3700383945229
+  - -220.41500137206867
+  - -621.4651817555844
+  - 700.6738147235817
+  - -348.0341627020548
+  - 63.14077836607612
+  - 533.2829214321835
+  - -259.3556564577648
+  - -182.98843185556518
+  - 906.9698871611479
+  - -137.16979843432546
+  - 846.5176875919651
+  - 12.96553528540096
+  - -776.3958833070453
+  - -249.27364068537645
+  weightMoveR1:
+  - -921.4189201227477
+  - -543.2211223725328
+  - -783.6321824154035
+  - -405.30415782951945
+  - 437.19788055736467
+  - -142.76016184257355
+  - -903.7523269205133
+  - -965.3710601690091
+  - -895.2779974300778
+  - -863.2025010246796
+  - 883.4603819453439
+  - -966.3723427645733
+  - -187.2653044700927
+  - 873.084771387784
+  - -478.72657211438127
+  pontuation: -1
+  plays: 0
+--- !u!114 &-3295434529237010028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 987532800649609196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e284355e74206f47b15544dd133cd26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weightVoid: 0
+  weightBumpiness: 0
+  weightHeight: 0
+  pontuation: 0
+  plays: 0

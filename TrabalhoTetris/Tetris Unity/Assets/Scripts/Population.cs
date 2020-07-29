@@ -9,6 +9,8 @@ public class Population : MonoBehaviour
     [SerializeField] private int indivIndex;
     [SerializeField] private int best; //index do melhor individuo
     public System.Random rand; 
+    public WindowGraph bestGraph;
+    public WindowGraph1 averageGraph;
     public static Population instance;
 
     void Awake()
@@ -45,15 +47,18 @@ public class Population : MonoBehaviour
     {
         for(int i = 0; i < pop.Length; i++)
         {
+            // Debug.Log(i + ":" + pop[i].pontuation + "> best:" + pop[best].pontuation);
             if(pop[i].IsBest(pop[best]))
+            {
                 best = i;
+                // Debug.Log("yes");
+
+            }
         }
     }
 
     public void Evolution()
-    {
-        FindBest();
-
+    { 
         for(int i = 0; i < pop.Length; i++)
         {
             if(i != best)
@@ -70,6 +75,7 @@ public class Population : MonoBehaviour
         {
             indivIndex++;
             SpawnPecas.instance.NextPlayer(pop[indivIndex]);
+            SpawnPecas.instance.Reset();
             SpawnPecas.instance.NewPecas();
         }
         else
@@ -83,9 +89,19 @@ public class Population : MonoBehaviour
 
     public void ShowPop()
     {
+        FindBest();
+
+        int average = 0;
+
         for(int i = 0; i < pop.Length; i++)
         {
-            Debug.Log(i + ": " + pop[i].pontuation + ", " + pop[i].plays);
+            Debug.Log(i + ": " + pop[i].pontuation);
+            average += pop[i].pontuation;
         }
+        average /= pop.Length; 
+
+        Debug.Log("best:" + pop[best].pontuation + ", average:" + average);
+        bestGraph.AddPoint(pop[best].pontuation);
+        averageGraph.AddPoint(average);
     }
 }

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class SpawnPecas : MonoBehaviour
 {
-    public GameObject[] Pecas;
+    public GameObject[] pecas;
     [SerializeField] private Indiv1 player;
     public static SpawnPecas instance;
+    private Random rand;
 
     void Awake()
     {
@@ -17,13 +18,20 @@ public class SpawnPecas : MonoBehaviour
 		}
 
 		instance = this;
+        Random.seed = 42;
 	}
+
+    public void Reset()
+    {
+        Random.seed = 42;
+        Random.Range(0,pecas.Length);
+    }
 
     public void NewPecas()
     {
-        int rand = Random.Range(0,Pecas.Length);
+        int rand = Random.Range(0,pecas.Length);
         
-        Instantiate(Pecas[rand], transform.position, Quaternion.identity);
+        Instantiate(pecas[rand], transform.position, Quaternion.identity);
     }
 
     public double AI(int holes, int bumpiness, int height)

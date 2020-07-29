@@ -9,27 +9,17 @@ public class Indiv1 : MonoBehaviour
     [SerializeField] private double weightHeight;
 
     public int pontuation;
-    public int plays;   
 
     void Start()
     {
         pontuation = -1;
-        plays = 0;
         GenerateAttributes();
     }
 
     //verifica se esse individuo é melhor que outro
     public bool IsBest(Indiv1 best)
     {
-        if(this.pontuation >= best.pontuation)
-        {
-            if(this.pontuation == best.pontuation && this.plays < best.plays)
-                return false;
-
-            return true;
-        }
-
-        return false;
+        return (this.pontuation > best.pontuation);
     }
 
     //gera um peso aleatorio dentro do intervalo [-100, 100]
@@ -56,17 +46,16 @@ public class Indiv1 : MonoBehaviour
     {
         // prob de mutacao de genes -> 100%
         // taxa de mutacao -> 1%
-        weightVoid += GenerateWeight() * 0.01;
-        weightBumpiness += GenerateWeight() * 0.01;
-        weightHeight += GenerateWeight() * 0.01;
+        weightVoid += GenerateWeight() * 0.03;
+        weightBumpiness += GenerateWeight() * 0.03;
+        weightHeight += GenerateWeight() * 0.03;
     }
 
     // crossover: media com o best
     public void Breed(Indiv1 best)
     {
         // avalicao nao realizada
-        this.pontuation = -1; 
-        this.plays = 0;
+        this.pontuation = -1;
 
         weightVoid = (weightVoid + best.weightVoid) / 2; // novo parametro
         weightBumpiness = (weightBumpiness + best.weightBumpiness) / 2;

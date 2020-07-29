@@ -278,7 +278,7 @@ public class TetrisBlock : MonoBehaviour
 
         for(int i = 0; i < nRotates; i++)
         {
-            // yield return new WaitForSeconds(0.01f);
+            // yield return new WaitForSeconds(0.001f);
             transform.position = initPosition;
             Rotate();
             // Debug.Log(nPiece + ":R");
@@ -294,7 +294,7 @@ public class TetrisBlock : MonoBehaviour
             {
                 mostRight--;
                 // Debug.Log(nPiece + ":E1");
-                // yield return new WaitForSeconds(0.01f);
+                // yield return new WaitForSeconds(0.001f);
             }
             
             while(MoveDown())
@@ -306,7 +306,7 @@ public class TetrisBlock : MonoBehaviour
                     // Debug.Log(nPiece + ":E2");
                     mostRight--;
                 }
-                // yield return new WaitForSeconds(0.01f);
+                // yield return new WaitForSeconds(0.001f);
             }
 
             tp = false;
@@ -314,7 +314,7 @@ public class TetrisBlock : MonoBehaviour
             {
                 while(!MoveRight())
                 {
-                    // yield return new WaitForSeconds(0.01f);
+                    // yield return new WaitForSeconds(0.001f);
                     // Debug.Log(nPiece + ":!D");
                     if(!MoveUp())
                     {
@@ -322,19 +322,17 @@ public class TetrisBlock : MonoBehaviour
                         if(!tp)
                         {
                             tp = true;
-
-                            float x = transform.position.x;
-                            transform.position = initPosition;
-                            while(transform.position.x < x)
-                                MoveRight();
-                            while(transform.position.x > x)
-                                MoveLeft();
+                            transform.position = new Vector3(initPosition.x, transform.position.y, transform.position.z);
+                            if(!ValidMove())
+                            {
+                                mostRight = 10;
+                                break;
+                            }
                             
                             while(MoveDown())
                             {
                                 // Debug.Log(nPiece + ":B2");
-                                // yield return new WaitForSeconds(0.01f);
-                                
+                                // yield return new WaitForSeconds(0.001f);
                             }
                         }
                         else
@@ -347,20 +345,14 @@ public class TetrisBlock : MonoBehaviour
                         // Debug.Log(nPiece + ":C");
 
                 }
-                // yield return new WaitForSeconds(0.01f);
+                // yield return new WaitForSeconds(0.001f);
                 // Debug.Log(nPiece + ":D");
                 mostRight++;
                 
                 while(MoveDown())
                 {
-                    if(MoveLeft())
-                    {
-                        mostRight--;
-                        // Debug.Log(nPiece + ":E3");
-                    }
                     // Debug.Log(nPiece + ":B3");
-                    // yield return new WaitForSeconds(0.01f);
-                    
+                    // yield return new WaitForSeconds(0.001f);   
                 }
             }
         }
