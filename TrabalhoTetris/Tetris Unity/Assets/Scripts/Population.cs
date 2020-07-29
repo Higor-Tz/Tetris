@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Population : MonoBehaviour
 {
-    // public int popSize = 10; //tamanho da população
-    public Indiv[] pop; //todos os individuos da população
+    public Indiv1[] pop; //todos os individuos da população
     [SerializeField] private int indivIndex;
     [SerializeField] private int best; //index do melhor individuo
+    public System.Random rand; 
     public static Population instance;
 
     void Awake()
@@ -19,6 +20,8 @@ public class Population : MonoBehaviour
 		}
 
 		instance = this;
+
+        rand = new System.Random(); // Inicia um random
 	}
 
     void Start()
@@ -56,7 +59,7 @@ public class Population : MonoBehaviour
         if(indivIndex < pop.Length-1)
         {
             indivIndex++;
-            // sP.NextPlayer(pop[indivIndex]);
+            SpawnPecas.instance.NextPlayer(pop[indivIndex]);
             SpawnPecas.instance.NewPecas();
         }
         else

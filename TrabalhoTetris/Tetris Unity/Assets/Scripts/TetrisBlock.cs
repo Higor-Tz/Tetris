@@ -17,15 +17,20 @@ public class TetrisBlock : MonoBehaviour
     public double bestScore;
     public Vector3 bestPosition;
     public Quaternion bestRotation;
+    public int readjustment;
 
-    // Start is called before the first frame update
     void Start()
     {
-        // if(!ValidMove())
-        //     EndGame();
+        transform.position += new Vector3(0, readjustment, 0);
 
-        bestScore = double.MinValue;
-        StartCoroutine(TestPositions());
+        if(!ValidMove())
+             EndGame();
+        else
+        {
+            bestScore = double.MaxValue;
+            // StartCoroutine(TestPositions());
+            TestPositions();
+        }
     }
 
     // void Update() // Atualização a cada frame de jogo
@@ -150,13 +155,13 @@ public class TetrisBlock : MonoBehaviour
             }
         }
         if(qlinhas==1) //eliminou 1 linha
-            pontuacao.score += scoreValue; // score soma 50
+            Pontuacao.score += scoreValue; // score soma 50
         else if(qlinhas==2) //eliminou 2 linha concecultivas
-            pontuacao.score += scoreValue*4; // score soma 200
+            Pontuacao.score += scoreValue*4; // score soma 200
         else if(qlinhas==3) //eliminou 3 linha concecultivas
-            pontuacao.score += scoreValue*16; // score soma 800
+            Pontuacao.score += scoreValue*16; // score soma 800
         else if(qlinhas==4) //eliminou 4 linha concecultivas
-            pontuacao.score += scoreValue*64; // score soma 3200
+            Pontuacao.score += scoreValue*64; // score soma 3200
         qlinhas=0;
     }
 
@@ -255,25 +260,26 @@ public class TetrisBlock : MonoBehaviour
 
     public void EndGame()
     {
-        this.enabled = false;
+        Debug.Log("Chama");
         ClearGrid();
-        Population.instance.Evaluate(pontuacao.score);
-        pontuacao.score = 0;
+        Population.instance.Evaluate(Pontuacao.score);
+        Pontuacao.score = 0;
         Population.instance.NextIndividual();
-        this.enabled = true;
-
+        Destroy(this.gameObject);
     }
 
-    IEnumerator TestPositions()
+    // IEnumerator TestPositions()
+    public void TestPositions()
     {
         Vector3 initPosition;
         int mostRight = 0;
+        bool tp = false;
 
         initPosition = transform.position;
 
         for(int i = 0; i < nRotates; i++)
         {
-            yield return new WaitForSeconds(0.5f);
+            // yield return new WaitForSeconds(0.01f);
             transform.position = initPosition;
             Rotate();
             // Debug.Log("R");
@@ -289,40 +295,54 @@ public class TetrisBlock : MonoBehaviour
             {
                 mostRight--;
                 // Debug.Log("E");
-                yield return new WaitForSeconds(0.1f);
+                // yield return new WaitForSeconds(0.01f);
             }
-
+            
             while(MoveDown())
             {
+                if(MoveLeft())
+                    mostRight--;
                 // Debug.Log("B1");
-                yield return new WaitForSeconds(0.1f);
+                // yield return new WaitForSeconds(0.01f);
             }
 
-            
+            tp = false;
             while(mostRight < width-1)
             {
                 while(!MoveRight())
                 {
-                    yield return new WaitForSeconds(0.1f);
+                    // yield return new WaitForSeconds(0.01f);
                     // Debug.Log("!D");
-                    if(!MoveUp())
+                    if(!MoveUp() && !tp)
                     {
-                        transform.position = new Vector3(transform.position.x, initPosition.y, initPosition.z);
-                        while(MoveDown())
+                        if(!tp)
                         {
-                            // Debug.Log("B2");
-                            yield return new WaitForSeconds(0.1f);
-                            
+                            tp = true;
+                            transform.position = new Vector3(transform.position.x, initPosition.y, initPosition.z);
+                            while(MoveDown())
+                            {
+                                // Debug.Log("B2");
+                                // yield return new WaitForSeconds(0.01f);
+                                
+                            }
+                        }
+                        else
+                        {
+                            mostRight = 10;
+                            break; 
                         }
                     }
                 }
+                // yield return new WaitForSeconds(0.01f);
                 // Debug.Log("D");
                 mostRight++;
                 
                 while(MoveDown())
                 {
+                    if(MoveLeft())
+                        mostRight--;
                     // Debug.Log("B2");
-                    yield return new WaitForSeconds(0.1f);
+                    // yield return new WaitForSeconds(0.01f);
                     
                 }
             }
@@ -345,13 +365,13 @@ public class TetrisBlock : MonoBehaviour
         for(int i = 0; i < width; i++)
         {
             colHeight = 0;
-            for(int j = 0; j < height; j++)
+            for(int j = height-1; j >= 0; j--)
             {
                 if(colHeight == 0)
                 {
                     if(TetrisBlock.grid[i,j] != null)
                     {
-                        colHeight = j;
+                        colHeight = j+1;
                     }
                 }
                 else
@@ -362,6 +382,7 @@ public class TetrisBlock : MonoBehaviour
                     }
                 }
             }
+            // Debug.Log("line" + i + "col:" + colHeight);
 
             if(heightPieces < colHeight)
                 heightPieces = colHeight;
@@ -371,16 +392,16 @@ public class TetrisBlock : MonoBehaviour
                 if(colHeight - colHeightPrev < 0)
                     bumpiness += colHeightPrev - colHeight;
                 else    
-                    bumpiness += colHeight + colHeightPrev;
+                    bumpiness += colHeight - colHeightPrev;
             }
             colHeightPrev = colHeight;
         }
 
-        Debug.Log("void:" + holes + ", bumpiness:" + bumpiness + ", height:" + heightPieces);
+        // Debug.Log("void:" + holes + ", bumpiness:" + bumpiness + ", height:" + heightPieces);
         var score = SpawnPecas.instance.AI(holes, bumpiness, heightPieces);
-        Debug.Log(score);
+        // Debug.Log(score);
 
-        if(score > bestScore)
+        if(score < bestScore)
         {
             bestScore = score;
             bestPosition = transform.position;

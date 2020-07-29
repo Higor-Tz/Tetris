@@ -133,6 +133,10 @@ MonoBehaviour:
   scoreValue: 50
   qlinhas: 0
   nRotates: 4
+  player: {fileID: 0}
+  bestScore: 0
+  bestPosition: {x: 0, y: 0, z: 0}
+  bestRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &6563697141104318
 GameObject:
   m_ObjectHideFlags: 0

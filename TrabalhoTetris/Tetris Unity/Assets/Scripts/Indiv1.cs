@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class Indiv1 : MonoBehaviour
 {
@@ -10,20 +9,17 @@ public class Indiv1 : MonoBehaviour
     [SerializeField] private double weightHeight;
 
     public int pontuation;
-    public int plays;
-
-    private System.Random rand;    
+    public int plays;   
 
     void Start()
     {
         pontuation = -1;
         plays = 0;
-        rand = new System.Random(); // Inicia um random
         GenerateAttributes();
     }
 
     //verifica se esse individuo é melhor que outro
-    public bool IsBest(Indiv best)
+    public bool IsBest(Indiv1 best)
     {
         if(this.pontuation >= best.pontuation)
         {
@@ -36,10 +32,10 @@ public class Indiv1 : MonoBehaviour
         return false;
     }
 
-    //gera um peso aleatorio dentro do intervalo [-100000, 100000]
+    //gera um peso aleatorio dentro do intervalo [-100, 100]
     public double GenerateWeight()
     {
-        return (rand.NextDouble() * 2000 - 1000);
+        return (Population.instance.rand.NextDouble() * 100);
     }
 
     //gera todos os pesos de atributos do individuo
