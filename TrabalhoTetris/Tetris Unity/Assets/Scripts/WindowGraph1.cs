@@ -23,7 +23,7 @@ public class WindowGraph1 : MonoBehaviour {
     private RectTransform graphContainer;
     GameObject lastCircleGameObject = null;
     float graphHeight;
-    float yMaximum = 100000f;
+    float yMaximum = 50000f;
     float xSize = 10f;
     int nPoint = 0;
 

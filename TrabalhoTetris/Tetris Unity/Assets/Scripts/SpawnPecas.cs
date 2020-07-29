@@ -8,6 +8,7 @@ public class SpawnPecas : MonoBehaviour
     [SerializeField] private Indiv1 player;
     public static SpawnPecas instance;
     private Random rand;
+    private int seed = 42;
 
     void Awake()
     {
@@ -18,12 +19,12 @@ public class SpawnPecas : MonoBehaviour
 		}
 
 		instance = this;
-        Random.seed = 42;
+        Random.seed = seed;
 	}
 
     public void Reset()
     {
-        Random.seed = 42;
+        Random.seed = seed;
         Random.Range(0,pecas.Length);
     }
 

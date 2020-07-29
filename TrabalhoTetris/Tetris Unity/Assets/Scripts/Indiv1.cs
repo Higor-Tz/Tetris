@@ -22,10 +22,10 @@ public class Indiv1 : MonoBehaviour
         return (this.pontuation > best.pontuation);
     }
 
-    //gera um peso aleatorio dentro do intervalo [-100, 100]
+    //gera um peso aleatorio dentro do intervalo [0, 200]
     public double GenerateWeight()
     {
-        return (Population.instance.rand.NextDouble() * 100);
+        return (Population.instance.rand.NextDouble() * 200);
     }
 
     //gera todos os pesos de atributos do individuo
@@ -46,9 +46,9 @@ public class Indiv1 : MonoBehaviour
     {
         // prob de mutacao de genes -> 100%
         // taxa de mutacao -> 1%
-        weightVoid += GenerateWeight() * 0.03;
-        weightBumpiness += GenerateWeight() * 0.03;
-        weightHeight += GenerateWeight() * 0.03;
+        weightVoid += GenerateWeight() * 0.05;
+        weightBumpiness += GenerateWeight() * 0.05;
+        weightHeight += GenerateWeight() * 0.05;
     }
 
     // crossover: media com o best
