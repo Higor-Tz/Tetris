@@ -12,6 +12,16 @@ Each completed line is scored 50 points, if two are completed at the same time t
 
 The game ends when one of the pieces crosses the top of the board.
 
+## Genetic Algorithm and Crossover
+We selected 3 pieces of information that the AI should take into account:
+The number of holes on the board;
+The irregularity of the surface;
+The maximum height of the pieces.
+
+All of these parameters are multiplied by weights so that the AI makes a decision, to choose these weights a genetic algorithm was used.
+
+In the genetic algorithm, after putting each individual to play we select the best and cross the others with him, a crossover in which the child will be the average between the parents, we apply a mutation, this has a 100% chance of occurring (we start with 1 % mutation, but it is possible to increase during execution if you see that the population is trapped in a maximum location), and then we repeat the process for several generations to find the best AI that plays the tetris.
+
 ## Dependencies:
  - *Unity*
 #### How to install:
