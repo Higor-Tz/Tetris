@@ -12,12 +12,6 @@ Each completed line is scored 50 points, if two are completed at the same time t
 
 The game ends when one of the pieces crosses the top of the board.
 
-//## Population
-//Texto a definir
-
-//## Crossover
-//Texto a definir
-
 ## Dependencies:
  - *Unity*
 #### How to install:
