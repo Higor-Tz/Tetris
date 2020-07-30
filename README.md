@@ -14,8 +14,11 @@ The game ends when one of the pieces crosses the top of the board.
 
 ## Genetic Algorithm and Crossover
 We selected 3 pieces of information that the AI should take into account:
+
 The number of holes on the board;
+
 The irregularity of the surface;
+
 The maximum height of the pieces.
 
 All of these parameters are multiplied by weights so that the AI makes a decision, to choose these weights a genetic algorithm was used.
