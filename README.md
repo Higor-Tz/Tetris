@@ -12,11 +12,11 @@ Each completed line is scored 50 points, if two are completed at the same time t
 
 The game ends when one of the pieces crosses the top of the board.
 
-## Population
-Texto a definir
+//## Population
+//Texto a definir
 
-## Crossover
-Texto a definir
+//## Crossover
+//Texto a definir
 
 ## Dependencies:
  - *Unity*
@@ -36,4 +36,4 @@ Begin Unity with any self account or existing Google account, open the project i
 The evolutionary process of the game will be visible in the execution.
 
 ## Results:
-A video of the execution will be added.
+https://youtu.be/rdDWwyJX9VU (video in Portuguese-Br)
