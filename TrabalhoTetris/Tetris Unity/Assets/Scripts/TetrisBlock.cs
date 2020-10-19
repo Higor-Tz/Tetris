@@ -159,9 +159,9 @@ public class TetrisBlock : MonoBehaviour
         else if(qlinhas==2) //eliminou 2 linha concecultivas
             Pontuacao.score += scoreValue*4; // score soma 200
         else if(qlinhas==3) //eliminou 3 linha concecultivas
-            Pontuacao.score += scoreValue*16; // score soma 800
+            Pontuacao.score += scoreValue*4*4; // score soma 800
         else if(qlinhas==4) //eliminou 4 linha concecultivas
-            Pontuacao.score += scoreValue*64; // score soma 3200
+            Pontuacao.score += scoreValue*4*4*4; // score soma 3200
         qlinhas=0;
     }
 
