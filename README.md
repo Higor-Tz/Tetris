@@ -43,4 +43,4 @@ Begin Unity with any self account or existing Google account, open the project i
 The evolutionary process of the game will be visible in the execution.
 
 ## Results:
-https://youtu.be/rdDWwyJX9VU (video in Portuguese-Br)
+https://youtu.be/pdXYcxP0PVo (video in Portuguese-Br)
